@@ -1,0 +1,17 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #000;
+}
+
+h1{
+    font-size: 15rem;
+    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.letter{
+    transition: color 1000ms;
+}

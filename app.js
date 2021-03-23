@@ -4,7 +4,6 @@ function randomRGB() {
     const b = Math.floor(Math.random() * 256);
     return `rgb(${r},${g},${b})`
 }
-
 //to change each letter independently
 const letters = document.querySelectorAll('.letter');
 const inervalId = setInterval(function () {

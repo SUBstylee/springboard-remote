@@ -1,0 +1,58 @@
+git init - initializes a git repository (creates a .git folder)
+rm -rf .git - remove .git (in case of accidental initilization)
+
+________________
+|Local workflow|
+________________
+
+Three areas
+*working directory
+*staging area (added, but not committed)
+*repository (added and committed)
+
+--Git status
+*to see where our files are in the local workflow we run the command 'git status'
+*untracked will be red text
+*tracked but uncommitted will be in green text
+*after committing our working directory will be clean and no longer show the commited files
+
+--Working directory
+*holds files we're working on but not yet saved to git
+*as files are edited, git sees they are modified but changes are not recorded
+*all files that have been modified are shown in red when we type 'git status'
+*they will be untracked until we move them to the staging area with the command 'git add'
+
+--Git add
+*saves our modified files so that they will be included in the next commit
+*this allows us to choose what modified changes we want to save and which we want to ignore
+*the command 'git add' followed by the name of the file moves that file to the staging area
+*to move all modified files to the staging area at once we use 'git add'
+
+--Staging area
+*if we move a modded file to the staging area, we are preparing to commit the state of the file at that point
+*if we continue working on that file, we have add it again or the new changes won't be tracked
+*the staging area is where we save the state of the work we are preparing to include with the next commit
+*files that are staged are shown in green text
+
+--Git commit
+*Once satisfied with the work on a file in our staging area, we commit it to the local repository
+*We need to include a commit message that summarizes the changes that were made in that commit
+*The message is connected to the commit with the -m flag
+	*git commit -m 'summary of this commit'
+*a commit is still local until we push it to a remove repository
+
+--Committing Workflow
+*git status -- what files have been added/modded?
+*get diff -- among those files, what has been changed?
+*git add <nameOfFile> -- add nameOfFile to staging area
+*git commit -m -- commit the file with a message!
+
+--.gitconfig Settings
+*if you take a look at 'git log' you may not see any info for the author and email
+	Here's how you change it:
+		git config --global user.name 'YOUR NAME'
+		git config --global user.email 'YOUR EMAIL'
+*if you find it annoying to press q every time in 'git log', you can change this as well
+		git config --global --remplace-all core.pager cat
+
+--These global config settings live in a file called '.gitconfig' which typically lives in your home directory. Try running 'cat ~/.gitconfig' to see all of your settings!

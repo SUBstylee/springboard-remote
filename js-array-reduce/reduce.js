@@ -6,7 +6,12 @@ Examples:
     extractValue(arr,'name') // ['Elie', 'Tim', 'Matt', 'Colt']
 */
 
-function extractValue(arr, key) {}
+function extractValue(arr, key) {
+    return arr.reduce(function (accumulator, nextValue) {
+        accumulator.push(nextValue[key]);
+        return accumulator;
+    }, []);
+}
 
 /*
 Write a function called vowelCount which accepts a string and returns an object with the keys as the vowel and the values as the number of times the vowel appears in the string. This function should be case insensitive so a lowercase letter and uppercase letter should count
@@ -19,7 +24,16 @@ Examples:
     vowelCount('I Am awesome and so are you') // {i: 1, a: 4, e: 3, o: 3, u: 1};
 */
 
-function vowelCount(str) {}
+function vowelCount(str) {
+    const vowels = "aeiou";
+    return str.split('').reduce(function (accumulator, nextChar) {
+        let lowered = nextChar.toLowerCase()
+        if (vowels.indexOf(lowered) !== -1) {
+            accumulator[lowered] ? accumulator[lowered]++ : accumulator[lowered] = 1;
+        }
+        return accumulator;
+    }, {});
+}
 
 /*
 Write a function called addKeyAndValue which accepts an array of objects and returns the array of objects passed to it with each object now including the key and value passed to the function.
@@ -36,7 +50,12 @@ Examples:
        ]
 */
 
-function addKeyAndValue(arr, key, value) {}
+function addKeyAndValue(arr, key, value) {
+    return arr.reduce(function (accumulator, nextValue, i) {
+        accumulator[i][key] = value;
+        return accumulator;
+    }, arr);
+}
 
 /*
 Write a function called partition which accepts an array and a callback and returns an array with two arrays inside of it. The partition function should run the callback function on each value in the array and if the result of the callback function at that specific value is true, the value should be placed in the first subarray. If the result of the callback function at that specific value is false, the value should be placed in the second subarray. 
@@ -60,4 +79,9 @@ Examples:
     partition(names, isLongerThanThreeCharacters) // [['Elie', 'Colt', 'Matt'], ['Tim']]
 */
 
-function partition(arr, callback) {}
+function partition(arr, callback) {
+    return arr.reduce(function (accumulator, nextValue) {
+        callback(nextValue) ? accumulator[0].push(nextValue) : accumulator[1].push(nextValue);
+        return accumulator;
+    }, [[], []]);
+}

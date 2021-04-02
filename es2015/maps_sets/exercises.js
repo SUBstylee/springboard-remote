@@ -1,0 +1,57 @@
+//  Maps and Sets Exercise
+//  Quick Question #1
+//  What does the following code return?
+
+new Set([1, 1, 2, 2, 3, 4])
+//{1,2,3,4} because a set cannot have duplicates
+
+//  Quick Question #2
+//  What does the following code return?
+
+[...new Set("referee")].join("")
+//'ref' because, again, cannot have duplicates
+
+//  Quick Questions #3
+//  What does the Map m look like after running the following code?
+
+let m = new Map();
+m.set([1, 2, 3], true);
+//Map(1) {Array(3) => true} map with one entry
+m.set([1, 2, 3], false);
+//Map(2) {Array(3) => true, Array(3) => false} map with two entries
+m;
+//Map(2) {Array(3) => true, Array(3) => false}
+//0: {Array(3) => true} entry one at index 0
+//1: {Array(3) => false} entry two at index 1 (can be verified by using '[...m][0]' and '[...m][1]' to spread into array and check index)
+//  hasDuplicate
+//  Write a function called hasDuplicate which accepts an array and returns true or false if that array contains a duplicate
+
+const hasDuplicate = arr => new Set(arr).size !== arr.length; //1.creates a set, which will remove duplicates 2.checks length (size) of set 3.compares length to original array 4.returns boolean
+
+//  hasDuplicate([1,3,2,1]) // true
+//  hasDuplicate([1,5,-1,4]) // false
+
+//  vowelCount
+//  Write a function called vowelCount which accepts a string and returns a map where the keys are numbers and the values are the count of the vowels in the string.
+
+function checkVowel(char) {
+    return 'aeiou'.includes(char)  //checks if character is a vowel
+}
+
+function vowelCount(str) {
+    const vowelMap = new Map();  //this map will store number of each vowel
+    for (let char of str) {  //loop through each character in the string
+        let lowerChar = char.toLowerCase();  //change to lowercase before passing to checkVowel()
+        if (checkVowel(lowerChar)) {  //checks if vowel
+            if (vowelMap.has(lowerChar)) {  //checks if other vowels of this type have been counted yet
+                vowelMap.set(lowerChar, vowelMap.get(lowerChar) + 1); //adds one to vowel if one has already been counted
+            } else {
+                vowelMap.set(lowerChar, 1);  //adds key, and one to value if they vowel has not been encountered yet
+            }
+        }
+    }
+    return vowelMap;  //returns the map with vowel count in it
+}
+
+//vowelCount('awesome') // Map { 'a' => 1, 'e' => 2, 'o' => 1 }
+//vowelCount('Colt') // Map { 'o' => 1 }

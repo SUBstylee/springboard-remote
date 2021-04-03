@@ -1,9 +1,11 @@
 /* game board table */
 #board{
-  z-index: 1;
+  position: relative;
+  overflow: hidden;
 }
 
 #board td {
+  position: relative;
   width: 50px;
   height: 50px;
   border: solid 5px #A67C61;
@@ -18,25 +20,26 @@ box-shadow: 5px 5px 5px 0px #4A371C, inset 4px 4px 15px 0px #000000, -11px 10px 
 
 .piece {
   /* TODO: make into circles */
-  /* position: absolute; */
+  position: relative;
   margin: 5px;
   width: 80%;
   height: 80%;
   border-radius: 50%;
-  z-index: 5;
-  /* transition: all 500ms; */
-	/* animation: drop 1s forwards; */
+  z-index: -1;
+	animation: slidein;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
 }
 
-.cell {
-	/* position: relative; */
-}
+@keyframes slidein {
+	from {
+    top: -340px;
+  }
 
-/* @keyframes drop {
-	to {
-		top: 0;
-	}
-} */
+  to {
+    top: 0;
+  }
+}
 
 /* TODO: make pieces red/blue,  depending on player 1/2 piece */
 .p1{
@@ -47,7 +50,7 @@ box-shadow: 5px 5px 5px 0px #4A371C, inset 4px 4px 15px 0px #000000, -11px 10px 
 .p2{
   background-color: #2519a3;
   -webkit-box-shadow: 0px 0px 0px 5px #A0A0A0, inset 0px 10px 27px -8px #141414, inset 0px -10px 27px -8px #A31925, -50px -50px 0px -30px rgba(0,0,0,0); 
-box-shadow: 0px 0px 0px 5px #2519a3, inset 0px 10px 27px -8px #141414, inset 0px -10px 27px -8px #8819a3, -50px -50px 0px -30px rgba(0,0,0,0);
+  box-shadow: 0px 0px 0px 5px #2519a3, inset 0px 10px 27px -8px #141414, inset 0px -10px 27px -8px #8819a3, -50px -50px 0px -30px rgba(0,0,0,0);
 }
 /* column-top is table row of clickable areas for each column */
 
@@ -58,16 +61,17 @@ box-shadow: 0px 0px 0px 5px #2519a3, inset 0px 10px 27px -8px #141414, inset 0px
 #column-top td:hover {
   background-color: gold;
 }
-
-h1{
+p, h1, h3{
   text-align: center;
+}
+h1{
   font-weight: 200;
   font-size: 3rem;
   font-family: 'Courier New', Courier, monospace;
 }
 
 table{
-  margin: 75px auto 0;
+  margin: 40px auto 0;
   border-collapse: collapse;
 }
 
@@ -77,7 +81,6 @@ h3{
   line-height: 100px;
   height: 100px;
   color: #fff;
-  text-align: center;
   background-color: #A31925;
   -webkit-box-shadow: 0px 0px 0px 15px #A31925, inset 0px 10px 27px -8px #141414, inset 0px -10px 27px -8px #8819a3, -50px -50px 0px -30px rgba(0,0,0,0);
   box-shadow: 0px 0px 0px 15px #A31925, inset 0px 10px 27px -8px #141414, inset 0px -10px 27px -8px #8819a3, -50px -50px 0px -30px rgba(0,0,0,0);
@@ -87,4 +90,19 @@ h3{
   background-color: #2519a3;
   -webkit-box-shadow: 0px 0px 0px 15px #A0A0A0, inset 0px 10px 27px -8px #141414, inset 0px -10px 27px -8px #A31925, -50px -50px 0px -30px rgba(0,0,0,0); 
 box-shadow: 0px 0px 0px 15px #2519a3, inset 0px 10px 27px -8px #141414, inset 0px -10px 27px -8px #8819a3, -50px -50px 0px -30px rgba(0,0,0,0);
+}
+a{
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  background-color: #A67C61;
+  padding: 15px 25px;
+  margin-bottom: 0 auto;
+  border-radius: 10px;
+  -webkit-box-shadow: 5px 5px 5px 0px #4A371C; 
+  box-shadow: 5px 5px 5px 0px #4A371C;
+}
+a:active{
+  padding: 16px 26px;
 }

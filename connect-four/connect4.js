@@ -71,7 +71,9 @@ function placeInTable(y, x) { // make a div and insert into correct table cell
 /** endGame: announce game end */
 
 function endGame(msg) {
-  window.alert(msg);  //pop up alert message
+  setTimeout(function () {
+    window.alert(msg);  //pop up alert message
+  }, 500);//wait .5 seconds so last piece falls in
 }
 
 /** handleClick: handle click of column top to play piece */

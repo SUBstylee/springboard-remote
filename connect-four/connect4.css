@@ -61,6 +61,10 @@ box-shadow: 5px 5px 5px 0px #4A371C, inset 4px 4px 15px 0px #000000, -11px 10px 
 #column-top td:hover {
   background-color: gold;
 }
+#column-top td:active {
+  background-color: gold;
+  border-radius: 50%;
+}
 p, h1, h3{
   text-align: center;
 }

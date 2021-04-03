@@ -5,7 +5,6 @@
 }
 
 #board td {
-  position: relative;
   width: 50px;
   height: 50px;
   border: solid 5px #A67C61;
@@ -33,7 +32,7 @@ box-shadow: 5px 5px 5px 0px #4A371C, inset 4px 4px 15px 0px #000000, -11px 10px 
 
 @keyframes slidein {
 	from {
-    top: -340px;
+    top: -350px;
   }
 
   to {
@@ -56,6 +55,7 @@ box-shadow: 5px 5px 5px 0px #4A371C, inset 4px 4px 15px 0px #000000, -11px 10px 
 
 #column-top td {
   border: dashed 3px lightgray;
+  box-shadow: none;
 }
 
 #column-top td:hover {
@@ -92,7 +92,6 @@ h3{
 box-shadow: 0px 0px 0px 15px #2519a3, inset 0px 10px 27px -8px #141414, inset 0px -10px 27px -8px #8819a3, -50px -50px 0px -30px rgba(0,0,0,0);
 }
 a{
-  position: relative;
   display: inline-block;
   text-decoration: none;
   color: #fff;
@@ -104,5 +103,5 @@ a{
   box-shadow: 5px 5px 5px 0px #4A371C;
 }
 a:active{
-  padding: 16px 26px;
+  padding: 14px 24px;
 }

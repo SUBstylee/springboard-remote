@@ -56,6 +56,7 @@ box-shadow: 5px 5px 5px 0px #4A371C, inset 4px 4px 15px 0px #000000, -11px 10px 
 #column-top td {
   border: dashed 3px lightgray;
   box-shadow: none;
+  background-color: #fff;
 }
 
 #column-top td:hover {

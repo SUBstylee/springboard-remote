@@ -1,0 +1,132 @@
+/* game board table */
+#board{
+  position: relative;
+  overflow: hidden;
+  /* background-color: #A67C6111; */
+  background-image: url(board.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#board td {
+  width: 50px;
+  height: 50px;
+  border: solid 5px #A67C6100;
+  -webkit-box-shadow: inset 4px 4px 15px 0px #000000, -11px 10px 19px 6px rgba(0,0,0,0); 
+box-shadow: inset 4px 4px 15px 0px #000000, -11px 10px 19px 6px rgba(0,0,0,0);
+border-radius: 50%;
+}
+#board tr:last-of-type{
+  border-bottom: solid 20px #A67C6100;
+}
+
+/* pieces are div within game table cells: draw as colored circles */
+
+.piece {
+  position: relative;
+  margin: 5px;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  z-index: -1;
+	animation: slidein;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slidein {
+	from {
+    top: -350px;
+  }
+
+  to {
+    top: 0;
+  }
+}
+
+.piece.p1 {
+  background-color: red;
+}
+
+.piece.p2 {
+  background-color: blue;
+}
+
+/* column-top is table row of clickable areas for each column */
+
+#column-top td {
+  border: dashed 3px lightgray;
+  box-shadow: none;
+  border-radius: 0;
+  background-color: #fff;
+}
+
+#column-top td:hover {
+  background-color: gold;
+}
+
+#column-top td:active {
+  background-color: gold;
+  border-radius: 50%;
+}
+
+p, h1, h3{
+  text-align: center;
+}
+
+h1{
+  font-weight: 200;
+  font-size: 3rem;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+table{
+  margin: 40px auto 0;
+  border-collapse: collapse;
+}
+
+h3{
+  margin: 0 auto 20px;
+  width: 100px;
+  line-height: 100px;
+  height: 100px;
+  color: #fff;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+button, input{
+  
+  text-decoration: none;
+  
+  
+  padding: 15px 25px;
+  margin: 15px auto 0;
+  border-radius: 10px;
+  -webkit-box-shadow: 5px 5px 5px 0px #4A371C; 
+  box-shadow: 5px 5px 5px 0px #4A371C;
+  
+  
+  
+}
+button{
+  display: block;
+  background-color: #A67C61;
+  border: none;
+  color: #fff;
+  outline: none;
+  text-align: center;
+}
+.colorInput{
+  text-align: center;
+}
+.colorInput p{
+  padding: 0 48px;
+}
+input, .colorInput p {
+  display: inline-block;
+  margin: 15px 10px;
+}
+button:active{
+  padding: 14px 24px;
+}

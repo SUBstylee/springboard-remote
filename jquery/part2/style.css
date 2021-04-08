@@ -29,4 +29,5 @@ span.rating{
 }
 span.remove{
     width: 10%;
+    cursor: pointer;
 }

@@ -1,0 +1,32 @@
+section#top{
+    text-align: center;
+    padding: 60px 0;
+}
+
+section#userForm{
+    padding: 50px;
+    background-color: #ddd;
+}
+
+section#movies{
+    text-align: center;
+    padding: 100px 0;
+}
+
+ul{
+    margin-top: 50px;
+}
+
+span{
+    display: inline-block;
+}
+span.title{
+    width: 70%;
+    text-align: left;
+}
+span.rating{
+    width: 10%;
+}
+span.remove{
+    width: 10%;
+}

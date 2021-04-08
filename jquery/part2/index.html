@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <section id="top">
+        <div class="container">
+            <h1>MOVIES</h1>
+            <h3>Enter a movie title and rate it (1-10)</h3>
+        </div>
+    </section>
+    <section id="userForm">
+        <div class="container">
+            <form>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Title of movie (Three characters or more)">
+                    </div>
+                    <div class="col">
+                        <label for="rating">Rating (<span>5</span>/10)</label>
+                        <input type="range" class="form-control-range" id="rating" min="1" max="10" value="5">
+                    </div>
+                </div>
+                <button type="submit" id="submit" class="btn btn-outline-secondary mb-2">Submit</button>
+            </form>
+        </div>
+    </section>
+    <section id="movies">
+        <div class="container">
+            <div id="sortBtns">
+                <p>Sort buttons are disabled. Likely won't come back to this exercise.</p>
+                <button type="button" id="sortA" class="btn btn-outline-primary" disabled>Sort A-Z</button>
+                <button type="button" id="sortZ" class="btn btn-outline-primary" disabled>Sort Z-A</button>
+                <button type="button" id="sortBest" class="btn btn-outline-success" disabled>Sort Best</button>
+                <button type="button" id="sortWorst" class="btn btn-outline-danger" disabled>Sort Worst</button>
+            </div>
+            <div id="movies">
+                <ul>
+                    <li class="movie"><span class="title">MOVIE TITLE</span><span class="rating">Rating</span><span
+                            class="remove"></span></li>
+                </ul>
+                <ol>
+                    <li class="movie"><span class="title">Movie name</span><span class="rating">5</span><span
+                            class="remove">&#10060;</span></li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

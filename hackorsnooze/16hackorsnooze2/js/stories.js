@@ -35,7 +35,7 @@ function generateStoryMarkup(story, storyNum, deleteBtn = false) {
           </span>
         </span>
 
-        <iframe src="${story.url}" frameborder="0" scrolling='no'></iframe>
+        <img src='https://shot.screenshotapi.net/screenshot?&url=${story.url}&output=image&file_type=png&thumbnail_width=250'>
           <p><a href="${story.url}" target="a_blank" class="story-link">
             ${story.title}
           </a></p>

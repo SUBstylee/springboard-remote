@@ -35,7 +35,7 @@ function generateStoryMarkup(story, storyNum, deleteBtn = false) {
           </span>
         </span>
 
-        <img src='https://shot.screenshotapi.net/screenshot?&url=${story.url}&output=image&file_type=png&thumbnail_width=250'>
+        <img src='http://free.pagepeeker.com/v2/thumbs.php?size=m&code={code}&refresh={refresh}&wait={wait}&url=${story.url}'>
           <p><a href="${story.url}" target="a_blank" class="story-link">
             ${story.title}
           </a></p>

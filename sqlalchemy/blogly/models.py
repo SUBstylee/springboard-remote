@@ -21,6 +21,21 @@ class User(db.Model):
         return f'{self.first_name} {self.last_name}'
 
 
+class Post(db.Model):
+    '''blog posts'''
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.Text, nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False,
+                           default=datetime.datetime.now)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+    @property
+    def readable_date(self):
+        '''return the date in a readable format'''
+        return self.created_at.strftime('%a %b %-d  %Y, %-I:%M %p')  # had to look this one up, and copy pasted 'strftime('%a %b %-d  %Y, %-I:%M %p')'
+
+
 def connect_db(app):
     '''connect database (to flask app)'''
     db.app = app

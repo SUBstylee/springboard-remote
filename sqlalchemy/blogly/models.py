@@ -1,4 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
+import datetime
+
+# from sqlalchemy.orm import backref
 
 db = SQLAlchemy()
 
@@ -15,6 +18,9 @@ class User(db.Model):
     last_name = db.Column(db.Text, nullable=False)
     img_url = db.Column(db.Text, nullable=False, default=DEFAULT_IMG_URL)
 
+    posts = db.relationship('Post', backref='user',
+                            cascade='all, delete-orphan')
+
     @property
     def full_name(self):
         '''return full name'''
@@ -23,11 +29,15 @@ class User(db.Model):
 
 class Post(db.Model):
     '''blog posts'''
+    __tablename__ = 'posts'
+
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Text, nullable=False)
     content = db.Column(db.Text, nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False,
-                           default=datetime.datetime.now)
+    created_at = db.Column(
+        db.DateTime,
+        nullable=False,
+        default=datetime.datetime.now)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     @property

@@ -1,13 +1,15 @@
 from flask import Flask, request, redirect, render_template, flash
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User, Post
+# from models import PostTag (wasn't used here, but leaving this as reminder for relationships)
+from models import db, connect_db, User, Post, Tag
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '12345'
 
-#app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+# comment next line out if you want debug to pause for redirects
+# app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 toolbar = DebugToolbarExtension(app)
 
@@ -53,7 +55,7 @@ def add_new_user():
     new_user = User(
         first_name=request.form['first_name'],
         last_name=request.form['last_name'],
-        img_url=request.form['img_url'] or None)
+        img_url=request.form['img_url'] or None)  # will use default.jpg in static folder if left empty (None)
 
     db.session.add(new_user)
     db.session.commit()
@@ -109,16 +111,19 @@ def delete_user(user_id):
 def new_post_form(user_id):
     '''form to create new post'''
     user = User.query.get_or_404(user_id)
-    return render_template('posts/new.html', user=user)
+    tags = Tag.query.all()
+    return render_template('posts/new.html', user=user, tags=tags)
 
 
 @app.route('/users/<int:user_id>/posts/new', methods=['POST'])
 def posts_new(user_id):
     '''creates new post by user'''
     user = User.query.get_or_404(user_id)
+    tag_ids = [int(num) for num in request.form.getlist('tags')]
+    tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
     new_post = Post(title=request.form['title'],
                     content=request.form['content'],
-                    user=user)
+                    user=user, tags=tags)
     db.session.add(new_post)
     db.session.commit()
     flash(f'{new_post.title} has been added.')
@@ -136,25 +141,41 @@ def show_post(post_id):
 def edit_post(post_id):
     '''form for editing a post'''
     post = Post.query.get_or_404(post_id)
-    return render_template('/posts/edit.html', post=post)
+    tags = Tag.query.all()
+    return render_template('/posts/edit.html', post=post, tags=tags)
 
 
 @app.route('/posts/<int:post_id>/edit', methods=['POST'])
 def submit_edit_post(post_id):
-    '''submits edited post'''
+    '''submits edits to a post'''
     post = Post.query.get_or_404(post_id)
     post.title = request.form['title']
     post.content = request.form['content']
+    tag_ids = [int(num) for num in request.form.getlist('tags')]
+    post.tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
     db.session.add(post)
     db.session.commit()
     flash(f'{post.title} has been edited.')
-    return redirect(f'/user/{post.user_id}')
+    # changed from user.id to user_id due to relationship
+    return redirect(f'/users/{post.user_id}')
 
 
 @app.route('/posts/<int:post_id>/delete', methods=['POST'])
 def delete_post(post_id):
+    '''delete a post'''
     post = Post.query.get_or_404(post_id)
     db.session.delete(post)
     db.session.commit()
     flash(f'{post.title} has been deleted.')
     return redirect(f'/users/{post.user_id}')
+
+# tags
+
+
+@app.route('/tags')
+@app.route('/tags/new')
+@app.route('/tags/new')  # post
+@app.route('/tags/<int:tag_id>')
+@app.route('/tags/<int:tag_id>/edit')
+@app.route('/tags/<int:tag_id>/edit')  # post
+@app.route('/tags/<int:tag_id>/delete')  # post

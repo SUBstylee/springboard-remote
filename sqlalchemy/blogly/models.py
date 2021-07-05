@@ -1,5 +1,8 @@
+from enum import unique
 from flask_sqlalchemy import SQLAlchemy
 import datetime
+
+from sqlalchemy.orm import backref
 
 # from sqlalchemy.orm import backref
 
@@ -44,6 +47,26 @@ class Post(db.Model):
     def readable_date(self):
         '''return the date in a readable format'''
         return self.created_at.strftime('%a %b %-d  %Y, %-I:%M %p')  # had to look this one up, and copy pasted 'strftime('%a %b %-d  %Y, %-I:%M %p')'
+
+
+class PostTag(db.Model):
+    '''tag for posts (many to many junction)'''
+
+    __tablename__ = 'post_tags'
+    post_id = db.Column(db.Integer, db.ForeignKey(
+        'posts.id'), primary_key=True)
+    tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'), primary_key=True)
+
+
+class Tag(db.Model):
+    '''tags for post (individual)'''
+
+    __tablename__ = 'tags'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text, nullable=False, unique=True)
+
+    # saw "cascade='all,delete'" in solution, but didn't have it in my solution, and it is commented out there
+    posts = db.relationship('Post', secondary='post_tags', backref='tags')
 
 
 def connect_db(app):

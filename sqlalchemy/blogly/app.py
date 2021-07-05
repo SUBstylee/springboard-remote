@@ -173,9 +173,69 @@ def delete_post(post_id):
 
 
 @app.route('/tags')
+def tags_index():
+    '''show all tags'''
+    tags = Tag.query.all()
+    return render_template('tags/index.html', tags=tags)
+
+
 @app.route('/tags/new')
-@app.route('/tags/new')  # post
+def new_tag():
+    '''create new tag form'''
+    posts = Post.query.all()
+    return render_template('tags/new.html', posts=posts)
+
+
+@app.route('/tags/new', methods=['POST'])  # post
+def new_tag_post():
+    '''form submission for new tag'''
+    post_ids = [int(num) for num in request.form.getlist('posts')]
+    posts = Post.query.filter(Post.id.in_(post_ids)).all()
+    new_tag = Tag(name=request.form['name'], posts=posts)
+
+    db.session.add(new_tag)
+    db.session.commit()
+    flash(f'{new_tag.name} has been added')
+
+    return redirect('/tags')
+
+
 @app.route('/tags/<int:tag_id>')
+def display_tag(tag_id):
+    '''show info on a tag'''
+    tag = Tag.query.get_or_404(tag_id)
+    return render_template('tags/show.html', tag=tag)
+
+
 @app.route('/tags/<int:tag_id>/edit')
-@app.route('/tags/<int:tag_id>/edit')  # post
-@app.route('/tags/<int:tag_id>/delete')  # post
+def edit_tag(tag_id):
+    '''form for editing a tag'''
+    tag = Tag.query.get_or_404(tag_id)
+    posts = Post.query.all()
+    return render_template('tags/edit.html', tag=tag, posts=posts)
+
+
+@app.route('/tags/<int:tag_id>/edit', methods=['POST'])  # post
+def edit_tag_post(tag_id):
+    '''post form for editing a tag'''
+    tag = Tag.query.get_or_404(tag_id)
+    tag.name = request.form['name']
+    post_ids = [int(num) for num in request.form.getlist('posts')]
+    tag.posts = Post.query.filter(Post.id.in_(post_ids)).all()
+
+    db.session.add(tag)
+    db.session.commit()
+    flash(f'{tag.name} has been edited.')
+
+    return redirect('/tags')
+
+
+@app.route('/tags/<int:tag_id>/delete', methods=['POST'])  # post
+def delete_tag(tag_id):
+    '''delete a tag'''
+    tag = Tag.query.get_or_404(tag_id)
+    db.session.delete(tag)
+    db.session.commit()
+    flash(f'{tag.name} has been deleted')
+
+    return redirect('/tags')

@@ -1,0 +1,16 @@
+h1,
+h2 {
+    margin: 1.5rem 0;
+}
+
+.form-control li {
+    list-style-type: none;
+}
+
+.all-pets {
+    margin-bottom: 2rem;
+}
+
+.btn {
+    margin: 1rem auto;
+}

@@ -3,14 +3,36 @@ h2 {
     margin: 1.5rem 0;
 }
 
+h3 {
+    display: block;
+}
+
 .form-control li {
     list-style-type: none;
 }
 
-.all-pets {
-    margin-bottom: 2rem;
+.available-pets,
+.unavailable-pets {
+    margin: 1rem 1rem 2rem;
+    padding: 5px;
+}
+
+.available-pets {
+    border: 2px solid rgb(16, 170, 37);
+}
+
+.unavailable-pets {
+    border: 2px solid rgb(199, 104, 25);
 }
 
 .btn {
     margin: 1rem auto;
+}
+
+.available {
+    color: rgb(16, 170, 37);
+}
+
+.unavailable {
+    color: rgb(199, 104, 25);
 }

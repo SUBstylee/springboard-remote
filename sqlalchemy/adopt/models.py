@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 
-MISSING_IMG = 'https://mylostpetalert.com/wp-content/themes/mlpa-child/images/nophoto.gif'
+MISSING_IMG = 'https://www.nationalpetregister.org/assets/img/no-photo.jpg'
 
 db = SQLAlchemy()
 

@@ -7,7 +7,7 @@
     {% if pet.available%}
     <div class="col-3">
         <img src="{{pet.img_url()}}" alt="thumbnail of pet" class="img-thumbnail">
-        <a href="{{url_for('edit_pet', pet_id=pet.id)}}">{{pet.name}}</a>
+        <a href="{{url_for('edit_pet', pet_id=pet.id)}}">{{pet.name}} the {{pet.species}}</a>
         <b class="available">Is still available!</b>
     </div>
     {% endif %}
@@ -19,7 +19,7 @@
     {% if not pet.available %}
     <div class="col-3">
         <img src="{{pet.img_url()}}" alt="thumbnail of pet" class="img-thumbnail">
-        <a href="{{url_for('edit_pet', pet_id=pet.id)}}">{{pet.name}}</a>
+        <a href="{{url_for('edit_pet', pet_id=pet.id)}}">{{pet.name}} the {{pet.species}}</a>
         <b class="unavailable">Has been adopted!</b>
     </div>
     {% endif %}

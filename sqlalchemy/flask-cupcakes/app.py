@@ -46,3 +46,26 @@ def post_cupcake():
     db.session.add(cupcake)
     db.session.commit()
     return (jsonify(cupcake=cupcake.to_dictionary()), 201)
+
+
+@app.route('/api/cupcakes/<int:cupcake_id>', methods=['PATCH'])
+def patch_cupcake(cupcake_id):
+    '''update and return request data'''
+    data = request.json
+    cupcake = Cupcake.query.get_or_404(cupcake_id)
+    cupcake.flavor = data['flavor']
+    cupcake.rating = data['rating']
+    cupcake.size = data['size']
+    cupcake.image = data['image']
+    db.session.add(cupcake)
+    db.session.commit()
+    return jsonify(cupcake=cupcake.to_dictionary())
+
+
+@app.route('/api/cupcakes/<int:cupcake_id>', methods=['DELETE'])
+def delete_cupcake(cupcake_id):
+    '''delete cupcake, alerting user with message'''
+    cupcake = Cupcake.query.get_or_404(cupcake_id)
+    db.session.delete(cupcake)
+    db.session.commit()
+    return jsonify(message='DELETED')

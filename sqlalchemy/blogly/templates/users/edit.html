@@ -10,8 +10,7 @@
     <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}">
     <label for="img_url">Image URL</label>
     <input type="text" id="img_url" name="img_url" value="{{user.img_url}}">
-    <a href="/users" class="btn btn-outline-info">Cancel</a>
-    <button type="submit">Save</button>
+    <a href="/users" class="btn btn-outline-danger">Cancel</a>
+    <button type="submit" class="btn btn-outline-info">Save</button>
 </form>
-<p><a href="/users">All Users</a></p>
 {% endblock %}

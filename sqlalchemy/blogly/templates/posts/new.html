@@ -13,8 +13,8 @@
       <label for='tag_{{ tag.id }}'>{{ tag.name }}</label>
     {% endfor %}
 
-    <a href="/users/{{user.id}}">CANCEL</a>
-    <button type="submit">ADD</button>
+    <a href="/users/{{user.id}}" class="btn btn-outline-danger">CANCEL</a>
+    <button type="submit" class="btn btn-outline-info">ADD</button>
 </form>
 <p><a href="/users">All Users</a></p>
 {% endblock %}

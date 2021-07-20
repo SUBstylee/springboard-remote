@@ -4,7 +4,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Post, Tag
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly_test'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '12345'
 
@@ -105,6 +105,14 @@ def delete_user(user_id):
     return redirect('/users')
 
 # posts
+
+
+@app.route('/allposts')
+def show_all_posts():
+    '''shows all posts, newest first'''
+
+    posts = Post.query.order_by(Post.created_at.desc()).all()
+    return render_template('posts/all_posts.html', posts=posts)
 
 
 @app.route('/users/<int:user_id>/posts/new')

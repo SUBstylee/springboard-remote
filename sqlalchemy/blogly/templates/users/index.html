@@ -2,13 +2,12 @@
 {% block title %}Users{% endblock %}
 {% block content %}
 <h1>Currently Registered Users</h1>
-<ul>
+<ol>
     {% for user in users %}
     <li>
         <a href="/users/{{user.id}}">{{user.full_name}}</a>
     </li>
     {% endfor %}
-</ul>
-<p><a href="/users/new">ADD USER</a></p>
-<p><a href="/">HOME</a></p>
+</ol>
+<p><a href="/users/new" class="btn btn-outline-info">ADD USER</a></p>
 {% endblock %}

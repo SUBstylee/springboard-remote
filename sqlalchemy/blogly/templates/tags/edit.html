@@ -8,18 +8,18 @@
     <input type="text" id="name" name="name" value="{{tag.name}}">
 
     {% for post in posts %}
+    <div style="display: block">
     <input type="checkbox" value="{{post.id}}" id="post_{{post.id}}" name="posts"
     {% if post in tag.posts %}
     checked
     {% endif %}
     >
     <label for="post_{{post.id}}">{{post.title}}</label>
+    </div>
     {% endfor %}
 
-    <a href="/tags">CANCEL</a>
-    <button type="submit">EDIT</button>
+    <a href="/tags" class="btn btn-outline-danger">CANCEL</a>
+    <button type="submit" class="btn btn-outline-info">EDIT</button>
 
 </form>
-
-<p><a href="/users">All Users</a></p>
 {% endblock %}

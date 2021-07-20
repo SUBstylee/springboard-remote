@@ -10,9 +10,7 @@
 </ul>
 
 <form>
-    <button formmethod="GET" formaction="/tags/{{tag.id}}/edit">EDIT</button>
-    <button formmethod="POST" formaction="/tags/{{tag.id}}/delete">DELETE</button>
+    <button formmethod="GET" formaction="/tags/{{tag.id}}/edit" class="btn btn-outline-info">EDIT</button>
+    <button formmethod="POST" formaction="/tags/{{tag.id}}/delete" class="btn btn-danger">DELETE</button>
 </form>
-
-<p><a href="/users">All Users</a></p>
 {% endblock %}

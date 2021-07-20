@@ -6,8 +6,9 @@
 {% endif %}
 <h1>{{user.full_name}}</h1>
 <form>
-    <button formaction="/users/{{ user.id }}/edit" formmethod="GET">Edit</button>
-    <button formaction="/users/{{ user.id }}/delete" formmethod="POST">Delete</button>
+    <button formaction="/users/{{ user.id }}/edit" formmethod="GET" class="btn btn-outline-info">Edit</button>
+    <button formaction="/users/{{ user.id }}/delete" formmethod="POST" class="btn btn-outline-danger">Delete</button>
+    <p><a href="/users/{{user.id}}/posts/new" class="btn btn-outline-success mt-1">ADD NEW POST</a></p>
 </form>
 <h2>Posts</h2>
 <ul>
@@ -18,6 +19,4 @@
     </li>
     {% endfor %}
 </ul>
-<p><a href="/users/{{user.id}}/posts/new">ADD NEW POST</a></p>
-<p><a href="/users">All Users</a></p>
 {% endblock %}

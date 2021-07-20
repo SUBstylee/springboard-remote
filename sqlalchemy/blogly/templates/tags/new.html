@@ -8,13 +8,13 @@
     <input type="text" name="name" id="name">
 
     {% for post in posts %}
+    <div style="display: block">
     <input type="checkbox" value="{{post.id}}" name="posts" id="post_{{post_id}}">
     <label for="post_{{post.id}}">{{post.title}}</label>
+    </div>
     {% endfor%}
 
-    <a href="/tags">CANCEL</a>
-    <button type="submit">ADD</button>
+    <a href="/tags" class="btn btn-outline-danger">CANCEL</a>
+    <button type="submit" class="btn btn-outline-info">ADD</button>
 </form>
-
-<p><a href="/users">All Users</a></p>
 {% endblock %}

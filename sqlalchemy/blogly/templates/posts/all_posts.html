@@ -1,11 +1,11 @@
 {% extends 'base.html'%}
 {% block title %}Home{% endblock %}
 {% block content %}
-<h1 class="mb-5">Five most recent posts.</h1>
+<h1 class="mb-5">All posts. (BY DATE)</h1>
 {% for post in posts %}
 <h2><a href="/posts/{{post.id}}">{{post.title}}</a></h2>
 <p>{{post.content}}</p>
-<p><a href="/users/{{post.user.id}}">{{post.user.full_name}}</a> {{post.readable_date}}</p>
+<p>{{post.user.full_name}} {{post.readable_date}}</p>
 
 {% if post.tags%}
 <p>

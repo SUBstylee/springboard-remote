@@ -3,7 +3,7 @@
 {% block content %}
 <h1>{{post.title}}</h1>
 <p>{{post.content}}</p>
-<p>Posted by: {{post.user.full_name}} on {{post.readable_date}}</p>
+<p><a href="/users/{{post.user.id}}">{{post.user.full_name}}</a> {{post.readable_date}}</p>
 
 {% if post.tags%}
 <p>
@@ -15,9 +15,8 @@
 {% endif %}
 
 <form>
-    <button formmethod="GET" formaction="/users/{{post.user_id}}">CANCEL</button>
-    <button formmethod="GET" formaction="/posts/{{post.id}}/edit">EDIT</button>
-    <button formmethod="POST" formaction="/posts/{{post.id}}/delete">DELETE</button>
+    <button formmethod="GET" formaction="/users/{{post.user_id}}" class="btn btn-outline-danger">CANCEL</button>
+    <button formmethod="GET" formaction="/posts/{{post.id}}/edit" class="btn btn-outline-info">EDIT</button>
+    <button formmethod="POST" formaction="/posts/{{post.id}}/delete" class="btn btn-danger">DELETE</button>
 </form>
-<p><a href="/users">All Users</a></p>
 {% endblock %}

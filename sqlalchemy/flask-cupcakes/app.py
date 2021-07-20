@@ -45,5 +45,4 @@ def post_cupcake():
     )
     db.session.add(cupcake)
     db.session.commit()
-    # after running tests figured out had to set this to 201 for created
     return (jsonify(cupcake=cupcake.to_dictionary()), 201)

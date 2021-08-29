@@ -60,38 +60,12 @@ checked functionality.
 
         - It is a handler that makes g.user accessible to the routes and other functions
 
-## need to fix:
-
-    2. Delete Profile
-    3. Likes
-    3. User Cards
-        a. on followers, following, and list-users page - show bio for users
-    4. Edit Profile
-        a. ensure user is logged in
-        b. show form with following:
-            i. username
-            ii. email
-            iii. image_url
-            iv. header_image_url
-            v. bio
-            vi. password
-                - check password is valid length, flash error and return to homepage if not
-                - this is to verify edit, NOT change password
-                - on success will redirect user to user detail page
-    5. Fix homepage
-        a. for logged-in-users should show the last 100 warbles ONLY from users the logged-in user is following and logged in   user, rather than all users
-    6. Research and Understand Login Strategy
-        a. look over the code in app.py related to authentication
-            i. how is logged in user being kept track of?
-            ii. what is flask's 'g' object?
-            iii. what is the purpose of 'add_user_to_g'?
-            iv. what does '@app.before_request' mean? 
-    need to add:
-    1. Add Likes (do this without AJAX/JS first, then later in further study can change to AJAX/JS)
-        a. add feature to 'like' a warble. only like warbles written by other users. put symbol (star?) next to likes warbles
-        b. should be able to unlike a warble
-
 ## Part 2: Add Likes
 
+1. Added likes:
+    
+    - allow users to like a warble
+    - allow users to unlike a warble
+    - on profile page show how many warbles that user has liked, and link to page showing all liked warbles
 
 ## Part 3: Add Tests

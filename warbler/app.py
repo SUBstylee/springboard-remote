@@ -5,7 +5,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
 from forms import UserAddForm, LoginForm, MessageForm, UserEditForm
-from models import db, connect_db, User, Message
+from models import db, connect_db, User, Message, Follows, Likes
 
 CURR_USER_KEY = "curr_user"
 
@@ -269,10 +269,45 @@ def delete_user():
     return redirect("/signup")
 
 
+@app.route('/users/add_like/<int:msg_id>', methods=['POST'])
+def add_like(msg_id):
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    liked_msg = Message.query.get_or_404(msg_id)
+
+    if g.user.id == liked_msg.user.id:
+        return redirect('/')
+    for like in g.user.likes:
+        if msg_id == like.id:
+            g.user.likes.remove(liked_msg)
+            db.session.commit()
+
+            return redirect('/')
+
+    g.user.likes.append(liked_msg)
+    db.session.commit()
+
+    return redirect('/')
+
+
+@app.route('/users/<int:user_id>/likes')
+def show_likes(user_id):
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    user = User.query.get_or_404(user_id)
+    all_messages = Message.query.order_by(Message.timestamp.desc()).all()
+
+    return render_template('users/likes.html', Likes=Likes, messages=all_messages, user=user)
+
 ##############################################################################
 # Messages routes:
 
-@app.route('/messages/new', methods=["GET", "POST"])
+
+@ app.route('/messages/new', methods=["GET", "POST"])
 def messages_add():
     """Add a message:
 
@@ -295,7 +330,7 @@ def messages_add():
     return render_template('messages/new.html', form=form)
 
 
-@app.route('/messages/<int:message_id>', methods=["GET"])
+@ app.route('/messages/<int:message_id>', methods=["GET"])
 def messages_show(message_id):
     """Show a message."""
 
@@ -303,7 +338,7 @@ def messages_show(message_id):
     return render_template('messages/show.html', message=msg)
 
 
-@app.route('/messages/<int:message_id>/delete', methods=["POST"])
+@ app.route('/messages/<int:message_id>/delete', methods=["POST"])
 def messages_destroy(message_id):
     """Delete a message."""
 
@@ -322,7 +357,7 @@ def messages_destroy(message_id):
 # Homepage and error pages
 
 
-@app.route('/')
+@ app.route('/')
 def homepage():
     """Show homepage:
 
@@ -346,7 +381,7 @@ def homepage():
                     if follower.id == g.user.id or message.user.id == g.user.id:
                         display_messages.append(message)
 
-        return render_template('home.html', messages=display_messages[:100])
+        return render_template('home.html', Likes=Likes, messages=display_messages[:100])
 
     else:
         return render_template('home-anon.html')
@@ -359,7 +394,7 @@ def homepage():
 #
 # https://stackoverflow.com/questions/34066804/disabling-caching-in-flask
 
-@app.after_request
+@ app.after_request
 def add_header(req):
     """Add non-caching headers on every request."""
 

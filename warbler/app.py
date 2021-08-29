@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, flash, redirect, session, g
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
-from forms import UserAddForm, LoginForm, MessageForm
+from forms import UserAddForm, LoginForm, MessageForm, UserEditForm
 from models import db, connect_db, User, Message
 
 CURR_USER_KEY = "curr_user"
@@ -112,8 +112,9 @@ def login():
 @app.route('/logout')
 def logout():
     """Handle logout of user."""
-
-    # IMPLEMENT THIS
+    do_logout()
+    flash('You have been logged out.', 'warning')
+    return redirect('/')
 
 
 ##############################################################################
@@ -211,7 +212,45 @@ def stop_following(follow_id):
 def profile():
     """Update profile for current user."""
 
-    # IMPLEMENT THIS
+    form = UserEditForm()
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+    if form.validate_on_submit():
+        user = User.authenticate(g.user.username, form.password.data)
+        if user:
+            g.user.username = form.username.data
+            g.user.email = form.email.data
+            g.user.bio = form.bio.data
+            g.user.location = form.location.data
+            if form.image_url.data:
+                g.user.image_url = form.image_url.data
+            else:
+                g.user.image_url = '/static/images/default-pic.png'
+            if form.header_image_url.data:
+                g.user.header_image_url = form.header_image_url.data
+            else:
+                g.header_imga_url = '/static/images/warble-hero.jpg'
+
+            try:
+                db.session.commit()
+            except IntegrityError as e:
+                db.session.rollback()
+                if 'username' in e.origin.pgerror:
+                    form.username.error.append(
+                        'This username is not available!')
+                    return render_template('users/edit.html', form=form, user=g.user)
+                if 'email' in e.origin.pgerror:
+                    form.email.error.append(
+                        'This email address has already been registered!')
+                    return render_template('users/edit.html', form=form, user=g.user)
+
+            flash('User successfully updated!', 'success')
+            return redirect(f'/users/{g.user.id}')
+
+        flash('Unauthorized', 'danger')
+
+    return render_template('users/edit.html', form=form, user=g.user)
 
 
 @app.route('/users/delete', methods=["POST"])
@@ -292,13 +331,22 @@ def homepage():
     """
 
     if g.user:
+        display_messages = []
         messages = (Message
                     .query
                     .order_by(Message.timestamp.desc())
-                    .limit(100)
                     .all())
 
-        return render_template('home.html', messages=messages)
+        for message in messages:
+            if message.user.id == g.user.id:
+                display_messages.append(message)
+            else:
+                followers_messages = message.user.followers
+                for follower in followers_messages:
+                    if follower.id == g.user.id or message.user.id == g.user.id:
+                        display_messages.append(message)
+
+        return render_template('home.html', messages=display_messages[:100])
 
     else:
         return render_template('home-anon.html')

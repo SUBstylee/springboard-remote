@@ -4,7 +4,6 @@
 #
 #    FLASK_ENV=production python -m unittest test_message_views.py
 
-
 from app import app, CURR_USER_KEY
 import os
 from unittest import TestCase
@@ -20,7 +19,6 @@ os.environ['DATABASE_URL'] = "postgresql:///warbler-test"
 
 
 # Now we can import app
-
 
 # don't use Flask DebugToolbar
 app.config['DEBUG_TB_HOSTS'] = ['dont-show-debug-toolbar']

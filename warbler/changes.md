@@ -69,3 +69,8 @@ checked functionality.
     - on profile page show how many warbles that user has liked, and link to page showing all liked warbles
 
 ## Part 3: Add Tests
+
+- test_user_model.py
+- test_user_views.py
+- test_message_model.py
+- test_message_views.py

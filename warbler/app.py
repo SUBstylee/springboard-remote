@@ -4,8 +4,8 @@ from flask import Flask, render_template, request, flash, redirect, session, g
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
-from forms import UserAddForm, LoginForm, MessageForm
-from models import db, connect_db, User, Message
+from forms import UserAddForm, LoginForm, MessageForm, UserEditForm
+from models import db, connect_db, User, Message, Follows, Likes
 
 CURR_USER_KEY = "curr_user"
 
@@ -112,8 +112,9 @@ def login():
 @app.route('/logout')
 def logout():
     """Handle logout of user."""
-
-    # IMPLEMENT THIS
+    do_logout()
+    flash('You have been logged out.', 'warning')
+    return redirect('/')
 
 
 ##############################################################################
@@ -211,7 +212,45 @@ def stop_following(follow_id):
 def profile():
     """Update profile for current user."""
 
-    # IMPLEMENT THIS
+    form = UserEditForm()
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+    if form.validate_on_submit():
+        user = User.authenticate(g.user.username, form.password.data)
+        if user:
+            g.user.username = form.username.data
+            g.user.email = form.email.data
+            g.user.bio = form.bio.data
+            g.user.location = form.location.data
+            if form.image_url.data:
+                g.user.image_url = form.image_url.data
+            else:
+                g.user.image_url = '/static/images/default-pic.png'
+            if form.header_image_url.data:
+                g.user.header_image_url = form.header_image_url.data
+            else:
+                g.header_imga_url = '/static/images/warble-hero.jpg'
+
+            try:
+                db.session.commit()
+            except IntegrityError as e:
+                db.session.rollback()
+                if 'username' in e.origin.pgerror:
+                    form.username.error.append(
+                        'This username is not available!')
+                    return render_template('users/edit.html', form=form, user=g.user)
+                if 'email' in e.origin.pgerror:
+                    form.email.error.append(
+                        'This email address has already been registered!')
+                    return render_template('users/edit.html', form=form, user=g.user)
+
+            flash('User successfully updated!', 'success')
+            return redirect(f'/users/{g.user.id}')
+
+        flash('Unauthorized', 'danger')
+
+    return render_template('users/edit.html', form=form, user=g.user)
 
 
 @app.route('/users/delete', methods=["POST"])
@@ -230,10 +269,45 @@ def delete_user():
     return redirect("/signup")
 
 
+@app.route('/users/add_like/<int:msg_id>', methods=['POST'])
+def add_like(msg_id):
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    liked_msg = Message.query.get_or_404(msg_id)
+
+    if g.user.id == liked_msg.user.id:
+        return redirect('/')
+    for like in g.user.likes:
+        if msg_id == like.id:
+            g.user.likes.remove(liked_msg)
+            db.session.commit()
+
+            return redirect('/')
+
+    g.user.likes.append(liked_msg)
+    db.session.commit()
+
+    return redirect('/')
+
+
+@app.route('/users/<int:user_id>/likes')
+def show_likes(user_id):
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    user = User.query.get_or_404(user_id)
+    all_messages = Message.query.order_by(Message.timestamp.desc()).all()
+
+    return render_template('users/likes.html', Likes=Likes, messages=all_messages, user=user)
+
 ##############################################################################
 # Messages routes:
 
-@app.route('/messages/new', methods=["GET", "POST"])
+
+@ app.route('/messages/new', methods=["GET", "POST"])
 def messages_add():
     """Add a message:
 
@@ -256,7 +330,7 @@ def messages_add():
     return render_template('messages/new.html', form=form)
 
 
-@app.route('/messages/<int:message_id>', methods=["GET"])
+@ app.route('/messages/<int:message_id>', methods=["GET"])
 def messages_show(message_id):
     """Show a message."""
 
@@ -264,7 +338,7 @@ def messages_show(message_id):
     return render_template('messages/show.html', message=msg)
 
 
-@app.route('/messages/<int:message_id>/delete', methods=["POST"])
+@ app.route('/messages/<int:message_id>/delete', methods=["POST"])
 def messages_destroy(message_id):
     """Delete a message."""
 
@@ -283,7 +357,7 @@ def messages_destroy(message_id):
 # Homepage and error pages
 
 
-@app.route('/')
+@ app.route('/')
 def homepage():
     """Show homepage:
 
@@ -292,13 +366,22 @@ def homepage():
     """
 
     if g.user:
+        display_messages = []
         messages = (Message
                     .query
                     .order_by(Message.timestamp.desc())
-                    .limit(100)
                     .all())
 
-        return render_template('home.html', messages=messages)
+        for message in messages:
+            if message.user.id == g.user.id:
+                display_messages.append(message)
+            else:
+                followers_messages = message.user.followers
+                for follower in followers_messages:
+                    if follower.id == g.user.id or message.user.id == g.user.id:
+                        display_messages.append(message)
+
+        return render_template('home.html', Likes=Likes, messages=display_messages[:100])
 
     else:
         return render_template('home-anon.html')
@@ -311,7 +394,7 @@ def homepage():
 #
 # https://stackoverflow.com/questions/34066804/disabling-caching-in-flask
 
-@app.after_request
+@ app.after_request
 def add_header(req):
     """Add non-caching headers on every request."""
 

@@ -55,7 +55,11 @@
               <button class="
                 btn 
                 btn-sm 
-                {{'btn-primary' if msg.id in likes else 'btn-secondary'}}"
+                {% if Likes.query.filter(Likes.message_id==msg.id, Likes.user_id==g.user.id).all() %}
+                  btn-primary
+                {% else %}
+                  btn-secondary
+                {% endif %}"
               >
                 <i class="fa fa-thumbs-up"></i> 
               </button>

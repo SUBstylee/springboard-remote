@@ -137,6 +137,7 @@ class UserModelTestCase(TestCase):
         U_DATA3['username'] = U_DATA1['username']
         with self.assertRaises(IntegrityError):
             new_user = User.signup(**U_DATA3)
+            db.session.add(new_user)
             db.session.commit()
 
         db.session.rollback()

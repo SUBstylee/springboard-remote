@@ -182,7 +182,7 @@ class UserViewTestCase(TestCase):
         '''Can a user log out?'''
 
         with self.client as c:
-            resp = c.post(
+            resp = c.get(
                 '/logout',
                 follow_redirects=True)
 

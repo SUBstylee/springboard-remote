@@ -1,0 +1,9 @@
+.container{
+    text-align: center;
+}
+
+ul{
+    list-style: none;
+    display: inline-block;
+    text-align: left;
+}

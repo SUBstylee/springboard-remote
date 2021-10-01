@@ -1,0 +1,29 @@
+body{
+    text-align: center;
+}
+
+/* pokeButton */
+#pokeButton{
+    padding: 10px;
+    background-color: #333;
+    color: #ddd;
+    border-radius: 5px;
+    border: none;
+    margin-top: 5px;
+}
+
+#pokeButton:hover{
+    cursor: pointer;
+    background-color: #777;
+    color: #f50c98;
+}
+
+#pokeButton:active{
+    padding: 9px;
+    margin: 6px 1px 1px 1px;
+}
+
+/* cards */
+.card-title{
+    text-transform: capitalize;
+}

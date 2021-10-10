@@ -16,12 +16,18 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
-    const results = await db.query(
-      `SELECT * FROM users WHERE id=$1`,
+    const userResults = await db.query(
+      `SELECT name,type FROM users WHERE id=$1`,
       [id]
     );
-    if (results.rows.length === 0) throw new ExpressError(`Can't find user with id of ${id}`, 404);
-    return res.send({ user: results.rows[0] });
+    const msgResults = await db.query(
+      `SELECT id,msg FROM messages WHERE user_id=$1`,
+      [id]
+    );
+    if (userResults.rows.length === 0) throw new ExpressError(`Can't find user with id of ${id}`, 404);
+    const user = userResults.rows[0];
+    user.messages = msgResults.rows;
+    return res.send({ user: user });
   } catch (e) {
     return next(e);
   };

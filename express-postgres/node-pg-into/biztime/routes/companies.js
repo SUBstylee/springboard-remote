@@ -22,24 +22,28 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:code', async (req, res, next) => {
     try {
-        const code = req.params.code;
-        const compResult = await db.query(
-            `SELECT code, name, description
-            FROM companies
-            WHERE code=$1`,
-            [code]
+        const comCode = req.params.code;
+        const results = await db.query(
+            `SELECT c.code,c.name,c.description,ind.industry
+            FROM companies AS c
+            LEFT JOIN companies_industries AS ci
+            ON c.code=ci.company_code
+            LEFT JOIN industries AS ind
+            ON ci.industry_code=ind.code
+            WHERE c.code=$1`,
+            [comCode]
         );
-        const invResult = await db.query(
+        const invResults = await db.query(
             `SELECT id
             FROM invoices
             WHERE comp_code=$1`,
-            [code]
+            [comCode]
         );
-        if (compResult.rows.length === 0) throw new ExpressError(`Company not in DB: ${code}`, 404);
-        const company = compResult.rows[0];
-        const invoices = invResult.rows;
-        company.invoices = invoices.map(i => i.id);
-        return res.json({ "company": company });
+        if (results.rows.length === 0) throw new ExpressError(`Company not in DB: ${comCode}`, 404);
+        results.rows[0].invoices = (invResults.rows).map(i => i.id);
+        const { code, name, description, invoices } = results.rows[0];
+        const industries = results.rows.map(ind => ind.industry);
+        return res.json({ "company": { code, name, description, industries, invoices } });
     } catch (e) {
         return next(e);
     };

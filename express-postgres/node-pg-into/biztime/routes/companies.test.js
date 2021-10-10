@@ -30,10 +30,17 @@ describe('GET routes', () => {
         expect(res.body).toEqual(
             {
                 "company": {
-                    code: "apple",
-                    name: "Apple",
-                    description: "Maker of OSX.",
-                    invoices: [1, 2],
+                    "code": "apple",
+                    "name": "Apple",
+                    "description": "Maker of OSX.",
+                    "industries": [
+                        "Technology",
+                        "Communication"
+                    ],
+                    "invoices": [
+                        1,
+                        2
+                    ]
                 }
             }
         );

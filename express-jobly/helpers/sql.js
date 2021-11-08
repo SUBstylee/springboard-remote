@@ -8,7 +8,7 @@ const { BadRequestError } = require("../expressError");
  * 
  * @param {*} dataToUpdate {Obj} {field1: newVal, field2: newVal, ...} 
  * @param {*} jsToSql {Obj} {}
- * @returns {Obj} {field1: "val", field2: "val"} maps data fields to database column names
+ * @returns {Obj} {field1: "val", field2: "val", ...} maps data fields to database column names
  * @example {firstName: "Bob", age: 100}=>
  * {setCols: '"first_name"=$1,"age"=$2', values: ["Bob",100]}
  */

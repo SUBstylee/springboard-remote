@@ -1,0 +1,12 @@
+.tweet {
+    border: 3px solid #0099CC;
+    border-radius: 10px;
+    margin: 20px 30%;
+    padding: 20px;
+  }
+  
+  .info {
+    color: #0099CC;
+    display: block;
+    margin: 5px 10px;
+  }

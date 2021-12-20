@@ -1,0 +1,48 @@
+.EightBall{
+    text-align: center;
+}
+
+.EightBall-ball{
+    margin: 15px auto 20px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    height: 450px;
+    width: 450px;
+    border-radius: 50%;
+    background-color: #000;
+}
+
+.EightBall-center{
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    color: #fff;
+    text-align: center;
+    
+}
+
+.EightBall-answer{
+    font-size: 2rem;
+    padding: 0 5px;
+    -webkit-text-stroke: 1px black;
+}
+
+.EightBall-black{
+    background-color: rgb(34, 32, 32);
+}
+.EightBall-red{
+    background-color: rgb(202, 37, 37);
+}
+.EightBall-green{
+    background-color: rgb(23, 173, 30);
+}
+.EightBall-yellow{
+    background-color: rgb(255, 239, 15);
+}

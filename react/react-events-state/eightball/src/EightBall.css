@@ -39,10 +39,88 @@
 }
 .EightBall-red{
     background-color: rgb(202, 37, 37);
+    color: rgb(88, 16, 16);
 }
 .EightBall-green{
     background-color: rgb(23, 173, 30);
+    color: rgb(11, 88, 15);
 }
 .EightBall-yellow{
     background-color: rgb(255, 239, 15);
+    color: rgb(100, 94, 7);
+}
+
+.EightBall button{
+    display: block;
+    margin: 0 auto 15px;
+    width: 15em;
+    padding: 1.5em;
+    border: 0px;
+    border-radius: 12px;
+    color: #fff;
+    background-color: #000;
+}
+.EightBall button:hover{
+    background: rgb(13,120,19);
+    background: linear-gradient(90deg, rgba(13,120,19,1) 0%, rgba(118,121,9,1) 53%, rgba(144,19,19,1) 100%);
+}
+.EightBall-positive,.EightBall-neutral,.EightBall-negative{
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+.EightBall-positive{
+    color: rgb(88, 16, 16);
+}
+.EightBall-neutral{
+    color: rgb(100, 94, 7);
+}
+.EightBall-negative{
+    color: rgb(11, 88, 15);
+}
+.EightBall-total{
+    font-size: 1.6rem;
+    font-weight: 900;
+}
+
+@keyframes shake {
+    0% {
+        -webkit-transform: none;
+        -ms-transform: none;
+        transform: none
+      }
+      15% {
+        -webkit-transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
+        -ms-transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
+        transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg)
+      }
+      30% {
+        -webkit-transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
+        -ms-transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
+        transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg)
+      }
+      45% {
+        -webkit-transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
+        -ms-transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
+        transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg)
+      }
+      60% {
+        -webkit-transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
+        -ms-transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
+        transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg)
+      }
+      75% {
+        -webkit-transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
+        -ms-transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
+        transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg)
+      }
+      100% {
+        -webkit-transform: none;
+        -ms-transform: none;
+        transform: none
+      }
+}
+
+.shaking{
+    animation-name: shake;
+    animation-duration: 1s;
 }

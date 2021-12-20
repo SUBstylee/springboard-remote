@@ -3,7 +3,6 @@ import './EightBall.css';
 
 const EightBall = (props) => {
     let ansColor = '';
-
     const randAns = () => props.answers[Math.floor(Math.random() * props.answers.length)];
     const showAnswer = () => {
         const ans = randAns();
@@ -21,6 +20,8 @@ const EightBall = (props) => {
         }
         setTotal(total + 1);
         setBgcolor(`EightBall-center ${ansColor}`);
+        setAsking(true);
+        setTimeout(() => setAsking(false), 1000);
     };
     const reset = () => {
         setAns('');
@@ -37,6 +38,7 @@ const EightBall = (props) => {
     const [neutral, setNeutral] = useState(0);
     const [negative, setNegative] = useState(0);
     const [total, setTotal] = useState(0);
+    const [asking, setAsking] = useState(false);
     return (
         <div className="EightBall">
             <h1>Magic Eight Ball</h1>
@@ -47,12 +49,14 @@ const EightBall = (props) => {
                 <p className="EightBall-negative">Negative: {negative}</p>
                 <p className="EightBall-total">Total: {total}</p>
             </div>
-            <div className='EightBall-ball'>
+            <div className={`EightBall-ball ${asking && 'shaking'}`}>
                 <div className={bgcolor}>
                     <p className="EightBall-answer">{ans.msg}</p>
                 </div>
             </div>
-            <button onClick={() => showAnswer()}>What is the answer?</button>
+            <button onClick={() => showAnswer()} disabled={asking}>
+                {asking ? 'Thinking...' : 'What is the answer?'}
+            </button>
             <button onClick={() => reset()}>Reset</button>
         </div>
     );

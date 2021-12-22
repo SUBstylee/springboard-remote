@@ -26,9 +26,9 @@ it('matches snapshot', () => {
 
 it('correctly displays coin and values on button press', () => {
     const { queryByRole, getByText, queryByAltText } = render(<CoinFlip />);
-    // get the text for number of flips. this will fail giving asignment error if not on page
+    // get the text for number of flips. this will fail giving asignment error if not on page or numbers are wrong, so it acts as a test that number of flips (across all) starts at zero.
     const flips = getByText('Out of 0 flips, there have been 0 heads and 0 tails.');
-    // check that image is not displayed on page load, and number of flips (across all) is zero
+    // check that image is not displayed on page load
     expect(queryByRole('image')).not.toBeInTheDocument();
     // check that image appears and is heads on first button click
     fireEvent.click(getByText('Flip the coin!'))

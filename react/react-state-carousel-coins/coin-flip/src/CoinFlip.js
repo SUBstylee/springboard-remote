@@ -23,7 +23,7 @@ const CoinFlip = (props) => {
         <div className='CoinFlipper'>
             <h2>Flip a coin</h2>
             <div className='coinContainer'>
-                {curCoin && <Coin info={curCoin} />}
+                {curCoin && <Coin info={curCoin.side} />}
             </div>
             <button onClick={() => handleClick()}>Flip the coin!</button>
             <p>Out of {numFlips} flips, there have been {numHeads} heads and {numTails} tails.</p>

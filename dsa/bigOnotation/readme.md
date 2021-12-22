@@ -110,7 +110,7 @@ Answer the following questions
 1. What’s the time complexity of the .splice array method? `O(n)`
 1. What’s the time complexity of the .pop array method? `O(1)`
 1. What’s the time complexity of the Object.keys() function? `O(n)`
-1. 
+
 ##### BONUS
 
 13. What’s the space complexity of the Object.keys() function? `O(n)`

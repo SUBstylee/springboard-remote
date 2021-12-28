@@ -50,7 +50,7 @@ function revString(str, idx = str.length - 1, revStr = '') {
 /** gatherStrings: given an object, return an array of all of the string values. */
 
 function gatherStrings(obj) {
-  let arr = [];
+  const arr = [];
   for (let key in obj) {
     if (typeof obj[key] === 'string') arr.push(obj[key]);
     if (typeof obj[key] === 'object') arr.push(...gatherStrings(obj[key]));

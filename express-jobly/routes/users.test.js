@@ -15,7 +15,7 @@ const {
   adminToken,
   u2Token
 } = require("./_testCommon");
-
+console.log('current env is ' + process.env.NODE_ENV);
 beforeAll(commonBeforeAll);
 beforeEach(commonBeforeEach);
 afterEach(commonAfterEach);
@@ -160,6 +160,14 @@ describe("POST /users", function () {
       })
       .set("authorization", `Bearer ${u1Token}`);
     expect(resp.statusCode).toEqual(401);
+  });
+  /************************************** POST /users/:username/jobs/:id */
+  test('works: apply for job', async function () {
+    const resp = await app.post('/users/u1/jobs/1', async function (req, res, next) {
+      expect(resp.body).toEqual({
+        appliedFor: 1
+      });
+    });
   });
 });
 

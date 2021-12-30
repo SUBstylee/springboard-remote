@@ -1,15 +1,15 @@
 
-function Box({ height, width, color }) {
+function Box({ height, width, color, removeBox }) {
 
     return (
         <>
             <div style={{
-                height: `${height}em`,
-                width: `${width}em`,
+                height: `${height}px`,
+                width: `${width}px`,
                 backgroundColor: `${color}`
             }}>
             </div>
-            <button>X</button>
+            <button onClick={removeBox}>X</button>
         </>
     );
 };

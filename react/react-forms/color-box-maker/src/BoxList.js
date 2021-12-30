@@ -9,11 +9,15 @@ function BoxList(props) {
         setBoxes(boxes => [...boxes, boxObj]);
     };
 
+    const remove = (id) => {
+        setBoxes(boxes.filter(box => box.id !== id));
+    };
+
     return (
         <div>
             <h1>Color Box Maker</h1>
-            <NewBoxForm createBox={create} />
-            {boxes.map(box => <Box width={box.width} height={box.height} color={box.color} />)}
+            <NewBoxForm create={create} />
+            {boxes.map(box => <Box key={box.id} id={box.id} width={box.width} height={box.height} color={box.color} removeBox={() => remove(box.id)} />)}
         </div>
     );
 };

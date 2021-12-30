@@ -17,14 +17,32 @@ class BinaryTree {
    * the length of the shortest path from the root to a leaf. */
 
   minDepth() {
-
-  }
+    if (!this.root) return 0;
+    let count = 1;
+    let visitQueue = [this.root];
+    while (visitQueue.length) {
+      let current = visitQueue.shift();
+      if (current.left) visitQueue.push(current.left);
+      if (current.right) visitQueue.push(current.right);
+      if (current.left || current.right) count++;
+      if (!current.left && !current.right) return count;
+    };
+  };
 
   /** maxDepth(): return the maximum depth of the tree -- that is,
    * the length of the longest path from the root to a leaf. */
 
   maxDepth() {
-
+    if (!this.root) return 0;
+    let count = 1;
+    let visitStack = [this.root];
+    while (visitStack.length) {
+      let current = visitStack.pop();
+      if (current.left) visitStack.push(current.left);
+      if (current.right) visitStack.push(current.right);
+      if (current.left && current.right) count++;
+    };
+    return count
   }
 
   /** maxSum(): return the maximum sum you can obtain by traveling along a path in the tree.
@@ -68,7 +86,7 @@ class BinaryTree {
    * of two nodes in a binary tree. */
 
   lowestCommonAncestor(node1, node2) {
-    
+
   }
 }
 

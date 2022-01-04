@@ -40,10 +40,50 @@ class Graph {
   }
 
   // this function returns an array of Node values using DFS
-  depthFirstSearch(start) { }
+  depthFirstSearch(start) {
+    const stack = [start];
+    const result = [];
+    const seen = new Set();
+    let curPos;
+
+    seen.add(start);
+
+    while (stack.length) {
+      curPos = stack.pop();
+      result.push(curPos.value);
+
+      curPos.adjacent.forEach(n => {
+        if (!seen.has(n)) {
+          seen.add(n);
+          stack.push(n);
+        };
+      });
+    };
+    return result;
+  }
 
   // this function returns an array of Node values using BFS
-  breadthFirstSearch(start) { }
+  breadthFirstSearch(start) {
+    const queue = [start];
+    const result = [];
+    const seen = new Set();
+    let curPos;
+
+    seen.add(start);
+
+    while (queue.length) {
+      curPos = queue.shift();
+      result.push(curPos.value);
+
+      curPos.adjacent.forEach(n => {
+        if (!seen.has(n)) {
+          seen.add(n);
+          queue.push(n);
+        };
+      });
+    };
+    return result;
+  }
 }
 
 module.exports = { Graph, Node }

@@ -6,7 +6,8 @@ function Box({ height, width, color, removeBox }) {
             <div style={{
                 height: `${height}px`,
                 width: `${width}px`,
-                backgroundColor: `${color}`
+                backgroundColor: `${color}`,
+                margin: `15px auto`
             }}>
             </div>
             <button onClick={removeBox}>X</button>

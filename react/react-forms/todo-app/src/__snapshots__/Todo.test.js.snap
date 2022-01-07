@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="Todo"
+  >
+    <li
+      class="Todo-task"
+    >
+      default todo
+    </li>
+    <div
+      class="Todo-buttons"
+    >
+      <button
+        aria-label="edit"
+      >
+        <i
+          class="fas fa-pen"
+        />
+      </button>
+      <button
+        aria-label="delete"
+      >
+        <i
+          class="fas fa-trash"
+        />
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`matches snapshot when editing 1`] = `
+<DocumentFragment>
+  <div
+    class="Todo"
+  >
+    <form
+      class="Todo-edit-form"
+    >
+      <input
+        type="text"
+        value="default todo"
+      />
+      <button>
+        Save Changes
+      </button>
+    </form>
+  </div>
+</DocumentFragment>
+`;

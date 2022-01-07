@@ -29,8 +29,8 @@ const Todo = ({ task = 'default todo', id = '1', remove, update, completed, togg
             <div className='Todo'>
                 <li className={completed ? 'Todo-task completed' : 'Todo-task'} onClick={handleToggle}>{task}</li>
                 <div className="Todo-buttons">
-                    <button onClick={handleEdit}><i className="fas fa-pen" /></button>
-                    <button onClick={handleRemove}><i className="fas fa-trash" /></button>
+                    <button onClick={handleEdit} aria-label='edit'><i className="fas fa-pen" /></button>
+                    <button onClick={handleRemove} aria-label='delete'><i className="fas fa-trash" /></button>
                 </div>
             </div>
         );

@@ -29,7 +29,7 @@ function NewBoxForm(props) {
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <label>Height</label>
+                <label htmlFor="height">Height</label>
                 <input
                     type='text'
                     name='height'
@@ -39,7 +39,7 @@ function NewBoxForm(props) {
                 />
             </div>
             <div>
-                <label>Width</label>
+                <label htmlFor="width">Width</label>
                 <input
                     type='text'
                     name='width'
@@ -49,7 +49,7 @@ function NewBoxForm(props) {
                 />
             </div>
             <div>
-                <label>Color</label>
+                <label htmlFor="color">Color</label>
                 <input
                     type='text'
                     name='color'

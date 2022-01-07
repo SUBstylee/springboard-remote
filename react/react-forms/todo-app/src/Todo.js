@@ -1,62 +1,41 @@
 import { useState } from "react";
-const Todo = (props) => {
+import './Todo.scss';
+const Todo = ({ task = 'default todo', id = '1', remove, update, completed, toggleCompleted }) => {
+    const [edit, setEdit] = useState(task);
+    const [isEdit, setIsEdit] = useState(false);
 
+    const handleRemove = () => remove(id);
+    const handleEdit = () => setIsEdit(isEdit ? false : true);
+    const handleUpdate = (e) => {
+        e.preventDefault();
+        update(id, edit);
+        setIsEdit(false);
+    };
+    const handleChange = (e) => setEdit(e.target.value);
+    const handleToggle = (e) => toggleCompleted(id);
 
-    return (
-        <div>
-            <button>Edit</button>
-            <button>X</button>
-            <li>{props.task}</li>
-        </div>
-    );
+    let res;
+    if (isEdit) {
+        res = (
+            <div className='Todo'>
+                <form className="Todo-edit-form">
+                    <input type='text' value={edit} onChange={handleChange} />
+                    <button onClick={handleUpdate}>Save Changes</button>
+                </form>
+            </div>
+        )
+    } else {
+        res = (
+            <div className='Todo'>
+                <li className={completed ? 'Todo-task completed' : 'Todo-task'} onClick={handleToggle}>{task}</li>
+                <div className="Todo-buttons">
+                    <button onClick={handleEdit}><i className="fas fa-pen" /></button>
+                    <button onClick={handleRemove}><i className="fas fa-trash" /></button>
+                </div>
+            </div>
+        );
+    }
+    return res;
 };
 
 export default Todo;
-
-// import React, { useState } from "react";
-
-// function Todo({ task = "default todo", id = "1", remove, update }) {
-//     const [editTask, setEditTask] = useState(task);
-//     const [isEditing, setIsEditing] = useState(false);
-
-//     const toggleEdit = () => {
-//         setIsEditing(edit => !edit);
-//     };
-
-//     const handleChange = evt => {
-//         setEditTask(evt.target.value);
-//     };
-
-//     const handleDelete = () => remove(id);
-
-//     const handleUpdate = evt => {
-//         evt.preventDefault();
-//         update(id, editTask);
-//         setIsEditing(false);
-//     };
-
-//     // default todo view
-//     let jsx = (
-//         <div>
-//             <li>{task}</li>
-//             <button onClick={toggleEdit}>Edit</button>
-//             <button onClick={handleDelete}>X</button>
-//         </div>
-//     );
-
-//     // todo view when editing
-//     if (isEditing) {
-//         jsx = (
-//             <div>
-//                 <form onSubmit={handleUpdate}>
-//                     <input type="text" value={editTask} onChange={handleChange} />
-//                     <button>Update!</button>
-//                 </form>
-//             </div>
-//         );
-//     }
-
-//     return jsx;
-// }
-
-// export default Todo;

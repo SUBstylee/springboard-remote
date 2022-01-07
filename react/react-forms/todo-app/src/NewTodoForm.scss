@@ -1,0 +1,36 @@
+.NewTodoForm{
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    label{
+        min-width: 100%;
+        margin-bottom: .5rem;
+        font-size: 1.3rem;
+    };
+    input{
+        flex-grow: 1;
+        border: none;
+        background: #f7f1f1;
+        padding: 0 1.5em;
+        font-size: initial;
+    }
+    button{
+        padding: 0 1.3rem;
+        border: none;
+        background: #f66;
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: bold;
+        border: 1px solid rgba($color: #fff, $alpha: 0.3);
+        margin-left: 5px;
+        cursor: pointer;
+        transition: background .2s ease-out;
+    }
+    button:hover{
+        background: #b14747;
+    }
+    input, button{
+        font-family: 'Helvetica', sans-serif;
+        height: 3rem;
+    }
+}

@@ -1,70 +1,51 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Todo from "./Todo";
 import NewTodoForm from "./NewTodoForm";
+import './TodoList.scss';
 
 function TodoList() {
-    const { todos, setTodos } = useState([{ task: 'do stuff' }, { task: 'do more stuff' }]);
+    const [todos, setTodos] = useState([]);
+
+    const create = (newTodo) => {
+        setTodos(todos => [...todos, newTodo]);
+    };
+
+    const update = (id, updatedTask) => {
+        setTodos(todos =>
+            todos.map(todo =>
+                todo.id === id ? { ...todo, task: updatedTask } : todo
+            )
+        );
+    };
+    const toggleCompleted = (id) => {
+        setTodos(todos =>
+            todos.map(todo =>
+                todo.id === id ? { ...todo, completed: !todo.completed } : todo
+            )
+        );
+    };
+
+    const remove = (id) => setTodos(todos => todos.filter(todo => todo.id !== id));
 
     const todoComp = todos.map(todo => (
         <Todo
+            remove={remove}
+            key={todo.id}
+            id={todo.id}
             task={todo.task}
+            update={update}
+            completed={todo.completed}
+            toggleCompleted={toggleCompleted}
         />
     ));
 
     return (
-        <>
-            <h1>Todo List</h1>
-            <ul>
-                {todoComp}
-            </ul>
-        </>
+        <div className="TodoList">
+            <h1>Todo List <span>Created with React and SASS</span></h1>
+            <NewTodoForm createTodo={create} />
+            <ul>{todoComp}</ul>
+        </div>
     );
 };
 
 export default TodoList;
-
-// import React, { useState } from "react";
-// import Todo from "./Todo";
-// import NewTodoForm from "./NewTodoForm";
-
-// function TodoList() {
-//     const [todos, setTodos] = useState([]);
-
-//     // add a new todo
-//     const create = newTodo => {
-//         setTodos(todos => [...todos, newTodo]);
-//     };
-
-//     // update a todo with updatedTask
-//     const update = (id, updatedTask) => {
-//         setTodos(todos =>
-//             todos.map(todo =>
-//                 todo.id === id ? { ...todo, task: updatedTask } : todo
-//             )
-//         );
-//     };
-
-//     // delete a todo by id
-//     const remove = id => {
-//         setTodos(todos => todos.filter(todo => todo.id !== id));
-//     };
-
-//     const todoComponents = todos.map(todo => (
-//         <Todo
-//             remove={remove}
-//             key={todo.id}
-//             id={todo.id}
-//             task={todo.task}
-//             update={update}
-//         />
-//     ));
-
-//     return (
-//         <div>
-//             <NewTodoForm createTodo={create} />
-//             <ul>{todoComponents}</ul>
-//         </div>
-//     );
-// }
-
-// export default TodoList;

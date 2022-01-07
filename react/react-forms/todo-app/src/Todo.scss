@@ -1,0 +1,81 @@
+.Todo{
+    display: flex;
+    margin: 0 -3rem 4px;
+    padding: 1.1rem 3rem;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba($color: #fff, $alpha: .1)  
+}
+.Todo-edit-form{
+    display: flex;
+    flex-wrap: wrap;
+    label{
+        min-width: 100%;
+        margin-bottom: .5rem;
+        font-size: 1.3rem;
+    };
+    input{
+        flex-grow: 1;
+        border: none;
+        background: #f7f1f1;
+        padding: 0 1.5em;
+        font-size: initial;
+    }
+    button{
+        padding: 0 1.3rem;
+        border: none;
+        background: #f66;
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: bold;
+        border: 1px solid rgba($color: #fff, $alpha: 0.3);
+        margin-left: 5px;
+        cursor: pointer;
+        transition: background .2s ease-out;
+    }
+    button:hover{
+        background: #b14747;
+    }
+    input, button{
+        font-family: 'Helvetica', sans-serif;
+        height: 3rem;
+    }
+}
+.Todo-task{
+    position: relative;
+    transition: opacity 0.4s linear;
+}
+.completed{
+    opacity: 0.6;
+    color: #555;
+    text-decoration: line-through rgba(207, 75, 75, 0.164);
+}
+.completed:before{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -0.5rem;
+    display: block;
+    width: 0%;
+    height: 2px;
+    background: rgb(119, 3, 3);
+    animation: strikeitem .6s ease-out 0s forwards;
+}
+.Todo-buttons{
+    flex-shrink: 0;
+    padding-left: .7em;
+    button{
+        border: none;
+        font-size: 1em;
+        margin: .4em;
+        background: none;
+        appearance: none;
+        cursor: pointer;
+        color: #fff;
+    }
+}; 
+@keyframes strikeitem {
+    to{
+        width: calc(100% + 1rem);
+    };
+};

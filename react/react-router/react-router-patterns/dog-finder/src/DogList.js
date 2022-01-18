@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import './DogList.css';
-// import { Link, BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 const DogList = ({ dogs }) => {
 

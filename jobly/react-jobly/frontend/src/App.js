@@ -8,6 +8,7 @@ import Applied from './pages/applied/applied.component';
 import Logout from './pages/logout/logout.component';
 import Signup from './pages/signup/signup.component';
 import Login from './pages/login/login.component';
+import NotFound from './pages/notfound/notfound.component';
 function App() {
   return (
     <div className="App">
@@ -17,9 +18,10 @@ function App() {
         <Route exact path='/companies' component={Companies} />
         <Route exact path='/jobs' component={Jobs} />
         <Route exact path='/applications' component={Applied} />
-        <Route exact path='/logout' component={Logout} />
+        <Route exact path='/logout' component={HomePage} />
         <Route exact path='/signup' component={Signup} />
         <Route exact path='/login' component={Login} />
+        <Route component={NotFound} />
       </Switch>
     </div>
   );

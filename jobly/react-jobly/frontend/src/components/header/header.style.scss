@@ -31,11 +31,13 @@
             &:last-of-type{
                 margin-right: 30px;
             }
+            &:hover{
+                color: #c1cfdb;
+            }
+            &.is-active, .is-active:hover{
+                color: #91a6b8;
+            }
         }
 
-    }
-
-    .is-active{
-        color: #b8cad9;
     }
 }

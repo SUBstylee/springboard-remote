@@ -24,6 +24,9 @@ const Header = () => {
                     <NavLink activeClassName='is-active' className='option' to='/applications'>
                         APPLICATIONS
                     </NavLink>
+                    <NavLink activeClassName='is-active' className='option' to='/profile'>
+                        PROFILE
+                    </NavLink>
                     <NavLink onClick={() => handleClick()} activeClassName='is-active' className='option' to='/logout'>
                         LOGOUT
                     </NavLink>

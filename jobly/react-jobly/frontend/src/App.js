@@ -5,10 +5,12 @@ import Header from './components/header/header.component';
 import Companies from './pages/companies/companies.component';
 import Jobs from './pages/jobs/jobs.component';
 import Applied from './pages/applied/applied.component';
-import Logout from './pages/logout/logout.component';
+import Profile from './pages/profile/profile.component';
 import Signup from './pages/signup/signup.component';
 import Login from './pages/login/login.component';
 import NotFound from './pages/notfound/notfound.component';
+import JoblyApi from './api';
+
 function App() {
   return (
     <div className="App">
@@ -21,6 +23,7 @@ function App() {
         <Route exact path='/logout' component={HomePage} />
         <Route exact path='/signup' component={Signup} />
         <Route exact path='/login' component={Login} />
+        <Route exact path='/profile' component={Profile} />
         <Route component={NotFound} />
       </Switch>
     </div>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 // import SearchForm from "../common/SearchForm";
 import JoblyApi from '../../api';
 import CompanyCard from '../../components/company-card/company-card.component';
@@ -15,20 +16,35 @@ import CompanyCard from '../../components/company-card/company-card.component';
  */
 
 function CompanyList() {
-    console.debug("CompanyList");
+    const [isLoading, setIsLoading] = useState(true);
+    const [companies, setCompanies] = useState([]);
+    const history = useHistory();
 
-    const [companies, setCompanies] = useState(null);
+    async function getCompanies(searchTerm) {
+        let allCompanies = await JoblyApi.getCompanies(searchTerm);
+        setCompanies(allCompanies);
+        setIsLoading(false);
+    }
 
-    useEffect(function getCompaniesOnMount() {
-        console.debug("CompanyList useEffect getCompaniesOnMount");
-        search();
-    }, []);
+    // useEffect(function getCompaniesOnMount() {
+    //     console.debug("CompanyList useEffect getCompaniesOnMount");
+    //     search();
+    // }, []);
 
     /** Triggered by search form submit; reloads companies. */
-    async function search(name) {
-        let companies = await JoblyApi.getCompanies(name);
-        setCompanies(companies);
-    }
+    // async function search(name) {
+    //     let companies = await JoblyApi.getCompanies(name);
+    //     setCompanies(companies);
+    // }
+    useEffect(() => {
+        // if (!user) {
+        //     history.push('/login');
+        // }
+
+        // Load companies from database and set global state for each array
+        getCompanies();
+    }, []);
+    // }, [user, history]);
 
     // // if (!companies) return <LoadingSpinner />;
 

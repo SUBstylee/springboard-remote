@@ -1,4 +1,5 @@
 import { Route, Switch } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import './App.scss';
 import HomePage from './pages/homepage/homepage.component';
 import Header from './components/header/header.component';
@@ -10,8 +11,13 @@ import Signup from './pages/signup/signup.component';
 import Login from './pages/login/login.component';
 import NotFound from './pages/notfound/notfound.component';
 import JoblyApi from './api';
+// import jwt from 'jsonwebtoken';
 
 function App() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState(null);
+  // const [token, setToken] = useLocalStorage('tokenKey');
+  const [errorMessage, setErrorMessage] = useState(null);
   return (
     <div className="App">
       <Header />

@@ -15,7 +15,7 @@ import CompanyCard from '../../components/company-card/company-card.component';
  * Routes -> { CompanyCard, SearchForm }
  */
 
-function CompanyList() {
+const CompanyList = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [companies, setCompanies] = useState([]);
     const history = useHistory();

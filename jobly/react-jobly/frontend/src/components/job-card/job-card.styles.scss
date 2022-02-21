@@ -1,4 +1,4 @@
-.company-card{
+.job-card{
     margin: 20px auto;
     width: 80%;
     max-width: 1000px;
@@ -8,31 +8,26 @@
     color: #fff;
     font-family: 'Open Sans Condensed';
     font-weight: bolder;
-    cursor: pointer;
     border: 1px solid #555;
-
-    .heading{
-        display: flex;
-        justify-content: space-between;
     
-        .title{
+        .title, .company-title{
             display: inline-block;
             color: #b9ccdb;
             background-color: #555;
             padding: 5px 10px;
         }
 
-        .logo{
-            height: 30px;
-            border-radius: 4px;
+        .apply-btn{
+            margin-top: 10px;
+            border: 1px solid #fff;
+            display: inline-block;
         }
-    }
 
     &:hover{
         background-color: #fff;
         box-shadow: 10px 10px 21px -2px rgba(0,0,0,0.75);
 -webkit-box-shadow: 10px 10px 21px -2px rgba(0,0,0,0.75);
 -moz-box-shadow: 10px 10px 21px -2px rgba(0,0,0,0.75);
-        p{color: #555;}
+        .info{color: #555;}
     }
 }

@@ -31,28 +31,66 @@ class JoblyApi {
       console.error("API Error:", err.response);
       let message = err.response.data.error.message;
       throw Array.isArray(message) ? message : [message];
-    }
-  }
+    };
+  };
 
   // Individual API routes
 
-  /** Get companies (filtered by name if not undefined) */
+  /** Get companies - with name filter */
 
   static async getCompanies(name) {
     let res = await this.request("companies", { name });
     return res.companies;
-  }
+  };
 
   /** Get details on a company by handle. */
 
   static async getCompany(handle) {
     let res = await this.request(`companies/${handle}`);
     return res.company;
-  }
+  };
 
+  /** Get jobs - with title filter */
 
-  // obviously, you'll add a lot here ...
-}
+  static async getJobs(title) {
+    let res = await this.request("jobs", { title });
+    return res.jobs;
+  };
+
+  /** Get current user */
+
+  static async getUser(username) {
+    let res = await this.request(`users/${username}`);
+    return res.user;
+  };
+
+  /** Apply to job */
+
+  static async applyToJob(username, id) {
+    await this.request(`users/${username}/jobs/${id}`, {}, 'post');
+  };
+
+  /** Signup for account */
+
+  static async signup(data) {
+    let res = await this.request(`auth/token`, data, 'post');
+    return res.token;
+  };
+
+  /** Create a token on user login */
+
+  static async login(data) {
+    let res = await this.request(`auth/token`, data, 'post');
+    return res.token;
+  };
+
+  /** Change user info */
+
+  static async changeInfo(username, data) {
+    let res = await this.request(`users/${username}`, data, 'patch');
+    return res.user;
+  };
+};
 
 // for now, put token ("testuser" / "password" on class)
 JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +

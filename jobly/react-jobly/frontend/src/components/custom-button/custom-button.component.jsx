@@ -1,6 +1,6 @@
 import './custom-button.styles.scss';
 
-const CustomButton = ({ text }) => (
+const CustomButton = ({ text, isLoading }) => (
     <button className='custom-button'>
         {text}
     </button>

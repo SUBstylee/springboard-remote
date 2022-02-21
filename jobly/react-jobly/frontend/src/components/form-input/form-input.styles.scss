@@ -27,7 +27,7 @@ $main-color:rgb(20, 20, 20);
         &:focus{
             outline: none;
         }
-        &:focus ~ .form-input-label{
+        &:focus ~ .form-input-label,&:valid ~ .form-input-label{
             @include shrinkLabel();
         }
     }
@@ -44,7 +44,7 @@ $main-color:rgb(20, 20, 20);
         top: 10px;
         transition: 300ms ease all;
 
-        &.shrink{
+        &.shrink,&.filled{
             @include shrinkLabel();
         }
     }

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const Profile = () => (
     <div className='login'>
-        <h1>login</h1>
+        <h1>profile</h1>
         <form>
             <FormInput name='first-name' type='text' autoComplete='first-name' defaultValue='' label='first name' required />
             <FormInput name='last-name' type='text' autoComplete='last-name' defaultValue='' label='last name' required />

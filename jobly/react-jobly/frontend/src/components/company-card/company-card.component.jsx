@@ -3,28 +3,24 @@ import { Link } from "react-router-dom";
 
 import "./company-card.styles.scss";
 
-/** Show limited information about a company
- *
- * Is rendered by CompanyList to show a "card" for each company.
- *
- * CompanyList -> CompanyCard
- */
-
-function CompanyCard({ name, description, logoUrl, handle }) {
-    console.debug("CompanyCard", logoUrl);
-
+const CompanyCard = ({ name, description, logoUrl, handle }) => {
     return (
-        <Link className="CompanyCard card" to={`/companies/${handle}`}>
-            <div className="card-body">
-                <h6 className="card-title">
-                    {name}
-                    {logoUrl && <img src={logoUrl}
-                        alt={name}
-                        className="float-right ml-5" />}
-                </h6>
-                <p><small>{description}</small></p>
-            </div>
-        </Link>
+        <div className="company-card">
+            <Link className='' to={`/companies/${handle}`}>
+
+                <div className="heading">
+                    <h2 className="title">
+                        {name}
+                    </h2>
+                    <span className="logo">
+                        {logoUrl && <img src={logoUrl}
+                            alt={name}
+                            className='logo' />}
+                    </span>
+                </div>
+                <p>{description}</p>
+            </Link>
+        </div>
     );
 }
 

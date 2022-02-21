@@ -1,27 +1,28 @@
 import './login.styles.scss';
 import FormInput from '../../components/form-input/form-input.component';
 import CustomButton from '../../components/custom-button/custom-button.component';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
 import UserContext from '../../UserContext';
-import { useNavigate } from 'react-router';
 
-const Login = ({ login, error }) => {
+const Login = ({ login, error, username, password }) => {
+    const location = useLocation();
+    const testUser = location.state?.testuser;
     const intialState = {
-        username: '',
-        password: '',
+        username: testUser ? 'testuser' : '',
+        password: testUser ? 'password' : '',
     };
 
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState(intialState);
     const { user } = useContext(UserContext);
-    const navigate = useNavigate();
+    const history = useHistory();
 
     useEffect(() => {
         if (user) {
-            navigate.push('/');
+            history.push('/');
         }
-    }, [user, navigate]);
+    }, [user, history]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -38,7 +39,7 @@ const Login = ({ login, error }) => {
             await login(formData);
             setIsLoading(false);
             setFormData(intialState);
-            history.push('/companies');
+            history.push('/');
         } catch (e) {
             alert(e);
             setIsLoading(false);
@@ -48,7 +49,7 @@ const Login = ({ login, error }) => {
     return (
         <div className='login'>
             <h1>login</h1>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <FormInput name='username' type='text' autoComplete='current-username' value={formData.username} onChange={handleChange} label='username' required />
                 <FormInput name='password' type='password' autoComplete='current-password' value={formData.password} onChange={handleChange} label='password' required />
                 <CustomButton text='sign in!' />

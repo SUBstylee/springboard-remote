@@ -1,14 +1,13 @@
 import './header.style.scss';
 import { NavLink, Link } from 'react-router-dom';
-
+import UserContext from '../../UserContext';
 import { ReactComponent as Logo } from '../../assets/JOBLY.svg';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
-const Header = () => {
-    const [loggedIn, setLoggedIn] = useState(false)
-    const handleClick = () => loggedIn ? setLoggedIn(false) : setLoggedIn(true);
+const Header = ({ logout }) => {
+    const { user } = useContext(UserContext);
 
-    if (loggedIn)
+    if (user)
         return (
             <div className='header'>
                 <Link className='logo-container' to='/'>
@@ -27,8 +26,8 @@ const Header = () => {
                     <NavLink activeClassName='is-active' className='option' to='/profile'>
                         PROFILE
                     </NavLink>
-                    <NavLink onClick={() => handleClick()} activeClassName='is-active' className='option' to='/logout'>
-                        LOGOUT
+                    <NavLink onClick={logout} activeClassName='is-active' className='option' to='/'>
+                        LOGOUT {user.username.toUpperCase()}
                     </NavLink>
                 </div>
             </div>
@@ -44,7 +43,7 @@ const Header = () => {
                     <NavLink activeClassName='is-active' className='option' to='/signup'>
                         SIGNUP
                     </NavLink>
-                    <NavLink onClick={() => handleClick()} activeClassName='is-active' className='option' to='/login'>
+                    <NavLink activeClassName='is-active' className='option' to='/login'>
                         LOGIN
                     </NavLink>
                 </div>

@@ -2,8 +2,9 @@ import './signup.styles.scss';
 import FormInput from '../../components/form-input/form-input.component';
 import CustomButton from '../../components/custom-button/custom-button.component'
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import UserContext from '../../UserContext';
 
 const Signup = ({ signup }) => {
     const [isLoading, setIsLoading] = useState(true);
@@ -15,7 +16,14 @@ const Signup = ({ signup }) => {
         lastName: '',
         email: '',
     });
+    const { user } = useContext(UserContext);
     // const [formErrors, setFormErrors] = useState([]);
+
+    useEffect(() => {
+        if (!user) {
+            history.push('/');
+        };
+    }, [user, history]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

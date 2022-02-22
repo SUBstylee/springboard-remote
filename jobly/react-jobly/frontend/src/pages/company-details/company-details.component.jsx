@@ -5,7 +5,8 @@ import JoblyApi from '../../api';
 import JobCard from "../../components/job-card/job-card.component";
 import CompanyCard from '../../components/company-card/company-card.component';
 import './company-details.styles.scss';
-// import LoadingSpinner from "../common/LoadingSpinner";
+import UserContext from '../../UserContext';
+import LoadingSpinner from '../../components/loading-spinner/loading-spinner.component';
 
 /** Show page with list of companies.
  *
@@ -21,7 +22,7 @@ const CompanyDetails = () => {
     const { handle } = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [company, setCompany] = useState({});
-    //   const { user } = useContext(UserContext);
+    const { user } = useContext(UserContext);
     const history = useHistory();
 
     // async function getJobs(searchTerm) {
@@ -41,22 +42,21 @@ const CompanyDetails = () => {
     //     setCompanies(companies);
     // }
     useEffect(() => {
-        // if (!user) {
-        //   history.push('/login');
-        // }
+        if (!user) {
+            history.push('/login');
+        } else {
+            async function getCompanyDetail() {
+                let companyDetail = await JoblyApi.getCompany(handle);
+                setCompany(companyDetail);
+                setIsLoading(false);
+            }
 
-        async function getCompanyDetail() {
-            let companyDetail = await JoblyApi.getCompany(handle);
-            setCompany(companyDetail);
-            setIsLoading(false);
+            // Load company from database and set global state for each array
+            getCompanyDetail();
         }
+    }, [handle, user, history]);
 
-        // Load company from database and set global state for each array
-        getCompanyDetail();
-    }, []);
-    //   }, [handle, user, history]);
-
-    // // if (!companies) return <LoadingSpinner />;
+    if (!company) return <LoadingSpinner />;
 
     return (
         <div>

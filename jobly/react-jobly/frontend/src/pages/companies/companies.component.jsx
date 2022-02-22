@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from 'react-router-dom';
 // import SearchForm from "../common/SearchForm";
 import JoblyApi from '../../api';
 import CompanyCard from '../../components/company-card/company-card.component';
-// import LoadingSpinner from "../common/LoadingSpinner";
+import UserContext from "../../UserContext";
+import LoadingSpinner from '../../components/loading-spinner/loading-spinner.component';
 
 /** Show page with list of companies.
  *
@@ -19,6 +20,7 @@ const CompanyList = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [companies, setCompanies] = useState([]);
     const history = useHistory();
+    const { user } = useContext(UserContext);
 
     async function getCompanies(searchTerm) {
         let allCompanies = await JoblyApi.getCompanies(searchTerm);
@@ -37,14 +39,13 @@ const CompanyList = () => {
     //     setCompanies(companies);
     // }
     useEffect(() => {
-        // if (!user) {
-        //     history.push('/login');
-        // }
-
-        // Load companies from database and set global state for each array
-        getCompanies();
-    }, []);
-    // }, [user, history]);
+        if (!user) {
+            history.push('/login');
+        } else {
+            // Load companies from database and set global state for each array
+            getCompanies();
+        }
+    }, [user, history]);
 
     // // if (!companies) return <LoadingSpinner />;
 

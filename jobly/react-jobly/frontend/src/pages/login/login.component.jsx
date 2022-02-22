@@ -37,11 +37,8 @@ const Login = ({ login, error }) => {
 
         try {
             setIsLoading(true);
-            let res = await login(formData);
-            setIsLoading(false);
-            if (res.success) {
-                history.push('/');
-            }
+            await login(formData);
+            history.push('/');
         } catch (e) {
             alert(e);
             setIsLoading(false);

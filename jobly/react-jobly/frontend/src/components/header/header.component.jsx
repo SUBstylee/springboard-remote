@@ -26,7 +26,7 @@ const Header = ({ logout }) => {
                     <NavLink activeClassName='is-active' className='option' to='/profile'>
                         PROFILE
                     </NavLink>
-                    <NavLink onClick={logout} activeClassName='is-active' className='option' to='/'>
+                    <NavLink onClick={logout} className='option' to='/'>
                         LOGOUT {user.username.toUpperCase()}
                     </NavLink>
                 </div>

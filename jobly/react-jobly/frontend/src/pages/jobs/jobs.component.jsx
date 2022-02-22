@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from 'react-router-dom';
 // import SearchForm from "../common/SearchForm";
 import JoblyApi from '../../api';
 import JobCard from "../../components/job-card/job-card.component";
+import UserContext from "../../UserContext";
 // import LoadingSpinner from "../common/LoadingSpinner";
 
 /** Show page with list of companies.
@@ -19,6 +20,7 @@ const JobList = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [jobs, setJobs] = useState([]);
     const history = useHistory();
+    const { user } = useContext(UserContext);
 
     async function getJobs(searchTerm) {
         let allJobs = await JoblyApi.getJobs(searchTerm);
@@ -37,14 +39,13 @@ const JobList = () => {
     //     setCompanies(companies);
     // }
     useEffect(() => {
-        // if (!user) {
-        //     history.push('/login');
-        // }
-
-        // Load companies from database and set global state for each array
-        getJobs();
-    }, []);
-    // }, [user, history]);
+        if (!user) {
+            history.push('/login');
+        } else {
+            // Load companies from database and set global state for each array
+            getJobs();
+        }
+    }, [user, history]);
 
     // // if (!companies) return <LoadingSpinner />;
 

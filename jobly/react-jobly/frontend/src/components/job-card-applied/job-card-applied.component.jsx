@@ -31,7 +31,6 @@ const JobCardApplied = ({ id, title, salary, equity, companyName, user, applyToJ
 
 };
 
-/** Render integer salary like '$1,250,343' */
 function formatSalary(salary) {
     return salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };

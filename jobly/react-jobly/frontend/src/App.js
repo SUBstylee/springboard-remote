@@ -92,9 +92,7 @@ function App() {
 
   const login = async (loginData) => {
     try {
-      // Login user via api and get token that is returned from POST request
       const userToken = await JoblyApi.login(loginData);
-      // Set token to trigger useEffect
       setToken(userToken);
       setErrorMessage(null);
       return true;
@@ -117,24 +115,20 @@ function App() {
 
   const applyToJob = async (user, jobId) => {
     try {
-      // Link user to a job posting based on username and jobId
       await JoblyApi.applyToJob(user.username, jobId);
-      // clear previous errors
       setErrorMessage(null);
 
       setUser({ ...user, applications: [...user.applications, jobId] });
-      // return true for successful update
       return true;
     } catch (e) {
       setErrorMessage({ type: 'job', message: e });
       console.log('Apply user to job error:', e);
-      // return false for unsuccessful update
       return false;
     }
   };
 
 
-  // if (!isLoading) return <LoadingSpinner />;
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <UserContext.Provider value={{ user }}>

@@ -8,19 +8,8 @@ import './company-details.styles.scss';
 import UserContext from '../../UserContext';
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner.component';
 
-/** Show page with list of companies.
- *
- * On mount, loads companies from API.
- * Re-loads filtered companies on submit from search form.
- *
- * This is routed to at /companies
- *
- * Routes -> { CompanyCard, SearchForm }
- */
-
 const CompanyDetails = ({ applyToJob }) => {
     const { handle } = useParams();
-    const [isLoading, setIsLoading] = useState(true);
     const [company, setCompany] = useState({});
     const { user } = useContext(UserContext);
     const history = useHistory();
@@ -32,12 +21,9 @@ const CompanyDetails = ({ applyToJob }) => {
             async function getCompanyDetail() {
                 let companyDetail = await JoblyApi.getCompany(handle);
                 setCompany(companyDetail);
-                setIsLoading(false);
-            }
-
-            // Load company from database and set global state for each array
+            };
             getCompanyDetail();
-        }
+        };
     }, [handle, user, history]);
 
     if (!company) return <LoadingSpinner />;
@@ -68,6 +54,6 @@ const CompanyDetails = ({ applyToJob }) => {
                 : null}
         </div >
     );
-}
+};
 
 export default CompanyDetails;

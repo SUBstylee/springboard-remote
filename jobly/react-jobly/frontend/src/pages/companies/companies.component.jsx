@@ -19,7 +19,6 @@ import './companies.styles.scss'
  */
 
 const CompanyList = () => {
-    // const [isLoading, setIsLoading] = useState(true);
     const [companies, setCompanies] = useState([]);
     const history = useHistory();
     const { user } = useContext(UserContext);

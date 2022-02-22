@@ -8,7 +8,6 @@ import LoadingSpinner from "../../components/loading-spinner/loading-spinner.com
 import './jobs.styles.scss'
 
 const JobList = ({ applyToJob }) => {
-    // const [isLoading, setIsLoading] = useState(true);
     const [jobs, setJobs] = useState([]);
     const history = useHistory();
     const { user } = useContext(UserContext);

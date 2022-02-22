@@ -17,7 +17,6 @@ const Signup = ({ signup }) => {
         email: '',
     });
     const { user } = useContext(UserContext);
-    // const [formErrors, setFormErrors] = useState([]);
 
     useEffect(() => {
         if (user) {

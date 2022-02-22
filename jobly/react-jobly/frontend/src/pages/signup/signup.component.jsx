@@ -20,7 +20,7 @@ const Signup = ({ signup }) => {
     // const [formErrors, setFormErrors] = useState([]);
 
     useEffect(() => {
-        if (!user) {
+        if (user) {
             history.push('/');
         };
     }, [user, history]);

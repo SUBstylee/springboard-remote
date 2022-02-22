@@ -12,12 +12,6 @@ const JobList = () => {
     const history = useHistory();
     const { user } = useContext(UserContext);
 
-    async function getJobs(searchTerm) {
-        let allJobs = await JoblyApi.getJobs(searchTerm);
-        setJobs(allJobs);
-        // setIsLoading(false);
-    }
-
     const search = async (name) => {
         let jobs = await JoblyApi.getJobs(name);
         setJobs(jobs);

@@ -5,7 +5,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
 import UserContext from '../../UserContext';
 
-const Login = ({ login, error, username, password }) => {
+const Login = ({ login, error }) => {
     const location = useLocation();
     const testUser = location.state?.testuser;
     const intialState = {
@@ -21,7 +21,7 @@ const Login = ({ login, error, username, password }) => {
     useEffect(() => {
         if (user) {
             history.push('/');
-        }
+        };
     }, [user, history]);
 
     const handleChange = (e) => {
@@ -34,12 +34,14 @@ const Login = ({ login, error, username, password }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
             setIsLoading(true);
-            await login(formData);
+            let res = await login(formData);
             setIsLoading(false);
-            setFormData(intialState);
-            history.push('/');
+            if (res.success) {
+                history.push('/');
+            }
         } catch (e) {
             alert(e);
             setIsLoading(false);
@@ -50,8 +52,8 @@ const Login = ({ login, error, username, password }) => {
         <div className='login'>
             <h1>login</h1>
             <form onSubmit={handleSubmit}>
-                <FormInput name='username' type='text' autoComplete='current-username' value={formData.username} onChange={handleChange} label='username' required />
-                <FormInput name='password' type='password' autoComplete='current-password' value={formData.password} onChange={handleChange} label='password' required />
+                <FormInput name='username' type='text' autoComplete='current-username' value={formData?.username} onChange={handleChange} label='username' required />
+                <FormInput name='password' type='password' autoComplete='current-password' value={formData?.password} onChange={handleChange} label='password' required />
                 <CustomButton text='sign in!' />
                 <Link to='/signup'>
                     <CustomButton text='create account' isLoading={isLoading} />

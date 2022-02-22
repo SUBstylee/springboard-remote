@@ -56,6 +56,7 @@ function App() {
       // trigger useEffect
       setToken(userToken);
       setErrorMessage(null);
+      return { success: true }
     } catch (e) {
       setToken(null);
       setErrorMessage({ type: 'signup', message: e });

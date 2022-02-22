@@ -53,7 +53,7 @@ const Profile = ({ changeInfo, error }) => {
 
     return (
         <div className='login'>
-            <h1>profile for {user ? user.username.toUpperCase() : ''}</h1>
+            <h1>Profile for {user ? user.username.toUpperCase() : ''}</h1>
             <form onSubmit={handleSubmit}>
                 <FormInput name='firstName' type='text' autoComplete='first-name' value={formData.firstName} label='first name' required
                     onChange={handleChange}

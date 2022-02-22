@@ -5,6 +5,7 @@ import JoblyApi from '../../api';
 import JobCard from "../../components/job-card/job-card.component";
 import UserContext from "../../UserContext";
 import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
+import './jobs.styles.scss'
 
 const JobList = () => {
     // const [isLoading, setIsLoading] = useState(true);
@@ -28,7 +29,8 @@ const JobList = () => {
     if (!jobs) return <LoadingSpinner />;
 
     return (
-        <div className=''>
+        <div className='job-list'>
+            <h1>Positions Available</h1>
             <SearchForm searchFor={search} />
             {jobs.length
                 ? (

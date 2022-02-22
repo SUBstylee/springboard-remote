@@ -6,6 +6,7 @@ import CompanyCard from '../../components/company-card/company-card.component';
 import UserContext from "../../UserContext";
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner.component';
 import SearchForm from "../../components/search-form/search-form.component";
+import './companies.styles.scss'
 
 /** Show page with list of companies.
  *
@@ -39,7 +40,8 @@ const CompanyList = () => {
     if (!companies) return <LoadingSpinner />;
 
     return (
-        <div className="CompanyList col-md-8 offset-md-2">
+        <div className="company-list col-md-8 offset-md-2">
+            <h1>Hiring Companies</h1>
             <SearchForm searchFor={search} />
             {companies.length
                 ? (

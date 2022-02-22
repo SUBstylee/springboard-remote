@@ -2,7 +2,7 @@ import './applied.styles.scss';
 
 const Applied = () => (
     <div className='applied'>
-        <h1>applied</h1>
+        <h1>Companies Applied To</h1>
     </div>
 );
 

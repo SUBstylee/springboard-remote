@@ -48,7 +48,7 @@ const Signup = ({ signup }) => {
 
     return (
         <div className='signup'>
-            <h1>signup</h1>
+            <h1>Signup</h1>
             <form onSubmit={handleSubmit}>
                 <FormInput name='username' type='text' autoComplete='new-username' label='username' required
                     value={formData.username} onChange={handleChange}

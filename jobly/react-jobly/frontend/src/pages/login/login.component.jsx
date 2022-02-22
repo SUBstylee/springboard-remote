@@ -47,7 +47,7 @@ const Login = ({ login, error }) => {
 
     return (
         <div className='login'>
-            <h1>login</h1>
+            <h1>Login</h1>
             <form onSubmit={handleSubmit}>
                 <FormInput name='username' type='text' autoComplete='current-username' value={formData?.username} onChange={handleChange} label='username' required />
                 <FormInput name='password' type='password' autoComplete='current-password' value={formData?.password} onChange={handleChange} label='password' required />

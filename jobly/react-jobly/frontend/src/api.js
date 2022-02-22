@@ -67,8 +67,9 @@ class JoblyApi {
   /** Apply to job */
 
   static async applyToJob(username, id) {
-    await this.request(`users/${username}/jobs/${id}`, {}, 'post');
-  };
+    await this.request(`users/${username}/jobs/${id}`, {}, "post");
+  }
+
 
   /** Signup for account */
 

@@ -18,29 +18,13 @@ import LoadingSpinner from '../../components/loading-spinner/loading-spinner.com
  * Routes -> { CompanyCard, SearchForm }
  */
 
-const CompanyDetails = () => {
+const CompanyDetails = ({ applyToJob }) => {
     const { handle } = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [company, setCompany] = useState({});
     const { user } = useContext(UserContext);
     const history = useHistory();
 
-    // async function getJobs(searchTerm) {
-    //     let allJobs = await JoblyApi.getJobs(searchTerm);
-    //     setJobs(allJobs);
-    //     setIsLoading(false);
-    // }
-
-    // useEffect(function getCompaniesOnMount() {
-    //     console.debug("CompanyList useEffect getCompaniesOnMount");
-    //     search();
-    // }, []);
-
-    /** Triggered by search form submit; reloads companies. */
-    // async function search(name) {
-    //     let companies = await JoblyApi.getCompanies(name);
-    //     setCompanies(companies);
-    // }
     useEffect(() => {
         if (!user) {
             history.push('/login');
@@ -76,8 +60,8 @@ const CompanyDetails = () => {
                             title={job.title}
                             salary={job.salary}
                             equity={job.equity}
-                        // applyToJob={applyToJob}
-                        // user={user}
+                            applyToJob={applyToJob}
+                            user={user}
                         />
                     </div>
                 ))

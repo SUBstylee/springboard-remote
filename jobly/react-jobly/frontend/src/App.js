@@ -24,6 +24,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
   const [errorMessage, setErrorMessage] = useState(null);
+  // const [applicationIds, setApplicationIds] = useState(new Set([]));
 
   useEffect(() => {
     /** will refresh in local storage and user context */
@@ -114,19 +115,24 @@ function App() {
     }
   };
 
-  // const applyToJob = async (jobId) => {
-  //   try {
-  //     // Link user to a job posting based on username and jobId
-  //     await JoblyApi.applyToJob(username, id);
-  //     setErrorMessage(null);
-  //     setUser({ ...username, applications: [...username.applications, id] });
-  //     return true;
-  //   } catch (e) {
-  //     setErrorMessage({ type: 'job', message: e });
-  //     console.log('Apply error:', e);
-  //     return false;
-  //   }
-  // };
+  const applyToJob = async (user, jobId) => {
+    try {
+      // Link user to a job posting based on username and jobId
+      await JoblyApi.applyToJob(user.username, jobId);
+      // clear previous errors
+      setErrorMessage(null);
+
+      setUser({ ...user, applications: [...user.applications, jobId] });
+      // return true for successful update
+      return true;
+    } catch (e) {
+      setErrorMessage({ type: 'job', message: e });
+      console.log('Apply user to job error:', e);
+      // return false for unsuccessful update
+      return false;
+    }
+  };
+
 
   // if (!isLoading) return <LoadingSpinner />;
 
@@ -142,10 +148,10 @@ function App() {
               </Route>
               <Route exact path='/companies' component={Companies} />
               <Route exact path='/companies/:handle'>
-                <CompanyDetails errorMessage={errorMessage} />
+                <CompanyDetails errorMessage={errorMessage} applyToJob={applyToJob} />
               </Route>
               <Route exact path='/jobs'>
-                <Jobs errorMessage={errorMessage} />
+                <Jobs errorMessage={errorMessage} applyToJob={applyToJob} />
               </Route>
               <Route exact path='/applications' component={Applied} />
               <Route exact path='/signup'>

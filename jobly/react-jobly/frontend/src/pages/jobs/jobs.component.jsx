@@ -7,7 +7,7 @@ import UserContext from "../../UserContext";
 import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
 import './jobs.styles.scss'
 
-const JobList = () => {
+const JobList = ({ applyToJob }) => {
     // const [isLoading, setIsLoading] = useState(true);
     const [jobs, setJobs] = useState([]);
     const history = useHistory();
@@ -43,6 +43,8 @@ const JobList = () => {
                                 salary={job.salary}
                                 equity={job.equity}
                                 companyName={job.companyName}
+                                user={user}
+                                applyToJob={applyToJob}
                             />
                         ))}
 

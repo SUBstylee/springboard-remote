@@ -22,6 +22,14 @@
             border: 1px solid #fff;
             display: inline-block;
         }
+        .disabled-btn:disabled{
+            margin-top: 10px;
+            border: 1px solid #555;
+            color: #555;
+            background-color: #fff;
+            display: inline-block;
+            cursor: not-allowed !important;
+        }
 
     &:hover{
         background-color: #fff;

@@ -1,23 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from 'react-router-dom';
-// import SearchForm from "../common/SearchForm";
+import SearchForm from "../../components/search-form/search-form.component";
 import JoblyApi from '../../api';
 import JobCard from "../../components/job-card/job-card.component";
 import UserContext from "../../UserContext";
-// import LoadingSpinner from "../common/LoadingSpinner";
-
-/** Show page with list of companies.
- *
- * On mount, loads companies from API.
- * Re-loads filtered companies on submit from search form.
- *
- * This is routed to at /companies
- *
- * Routes -> { CompanyCard, SearchForm }
- */
+import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
 
 const JobList = () => {
-    const [isLoading, setIsLoading] = useState(true);
+    // const [isLoading, setIsLoading] = useState(true);
     const [jobs, setJobs] = useState([]);
     const history = useHistory();
     const { user } = useContext(UserContext);
@@ -25,33 +15,27 @@ const JobList = () => {
     async function getJobs(searchTerm) {
         let allJobs = await JoblyApi.getJobs(searchTerm);
         setJobs(allJobs);
-        setIsLoading(false);
+        // setIsLoading(false);
     }
 
-    // useEffect(function getCompaniesOnMount() {
-    //     console.debug("CompanyList useEffect getCompaniesOnMount");
-    //     search();
-    // }, []);
+    const search = async (name) => {
+        let jobs = await JoblyApi.getJobs(name);
+        setJobs(jobs);
+    };
 
-    /** Triggered by search form submit; reloads companies. */
-    // async function search(name) {
-    //     let companies = await JoblyApi.getCompanies(name);
-    //     setCompanies(companies);
-    // }
     useEffect(() => {
         if (!user) {
             history.push('/login');
         } else {
-            // Load companies from database and set global state for each array
-            getJobs();
+            search();
         }
     }, [user, history]);
 
-    // // if (!companies) return <LoadingSpinner />;
+    if (!jobs) return <LoadingSpinner />;
 
     return (
         <div className=''>
-            {/* <SearchForm searchFor={search} /> */}
+            <SearchForm searchFor={search} />
             {jobs.length
                 ? (
                     <div className=''>

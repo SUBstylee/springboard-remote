@@ -5,6 +5,7 @@ import JoblyApi from '../../api';
 import CompanyCard from '../../components/company-card/company-card.component';
 import UserContext from "../../UserContext";
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner.component';
+import SearchForm from "../../components/search-form/search-form.component";
 
 /** Show page with list of companies.
  *
@@ -17,41 +18,29 @@ import LoadingSpinner from '../../components/loading-spinner/loading-spinner.com
  */
 
 const CompanyList = () => {
-    const [isLoading, setIsLoading] = useState(true);
+    // const [isLoading, setIsLoading] = useState(true);
     const [companies, setCompanies] = useState([]);
     const history = useHistory();
     const { user } = useContext(UserContext);
 
-    async function getCompanies(searchTerm) {
-        let allCompanies = await JoblyApi.getCompanies(searchTerm);
-        setCompanies(allCompanies);
-        setIsLoading(false);
-    }
+    const search = async (name) => {
+        let companies = await JoblyApi.getCompanies(name);
+        setCompanies(companies);
+    };
 
-    // useEffect(function getCompaniesOnMount() {
-    //     console.debug("CompanyList useEffect getCompaniesOnMount");
-    //     search();
-    // }, []);
-
-    /** Triggered by search form submit; reloads companies. */
-    // async function search(name) {
-    //     let companies = await JoblyApi.getCompanies(name);
-    //     setCompanies(companies);
-    // }
     useEffect(() => {
         if (!user) {
             history.push('/login');
         } else {
-            // Load companies from database and set global state for each array
-            getCompanies();
+            search();
         }
     }, [user, history]);
 
-    // // if (!companies) return <LoadingSpinner />;
+    if (!companies) return <LoadingSpinner />;
 
     return (
         <div className="CompanyList col-md-8 offset-md-2">
-            {/* <SearchForm searchFor={search} /> */}
+            <SearchForm searchFor={search} />
             {companies.length
                 ? (
                     <div className="CompanyList-list">

@@ -4,16 +4,16 @@ const INITIAL_STATE = {
     todos: []
 };
 
-const rootReducer(state = INITIAL_STATE, action){
+const rootReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case 'ADD_TODO':
             return { ...state, todos: [...state.todos, { task: action.task, id: uuidv4() }] };
         case 'DELETE_TODO':
-            return { ...state, todos: state.todos.filter(todo => todo !== action.id) };
+            return { ...state, todos: state.todos.filter(todo => todo.id !== action.id) };
         case 'EDIT_TODO':
             const todos = state.todos.map(todo => {
                 if (todo.id === action.id) {
-                    return { ...todo, task: action.updatedTask };
+                    return { ...todo, task: action.editedTask };
                 };
                 return todo
             });

@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import ItemList from './components/ProductList/ProductList';
 import Routes from './routes/routes';
+import NavBar from './components/NavBar/NavBar';
 
 function App() {
   return (
     <div className="App">
-      <h1>working</h1>
+      <NavBar />
       <Routes />
     </div>
   );

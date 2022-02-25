@@ -6,13 +6,13 @@ import { useDispatch } from "react-redux";
 const CartControls = ({ id }) => {
     const dispatch = useDispatch();
 
-    const add = () => { dispatch(addToCart(id)); };
-    const remove = () => { dispatch(removeFromCart(id)); };
+    const add = (e) => { dispatch(addToCart(id)); };
+    const remove = (e) => { dispatch(removeFromCart(id)); };
 
     return (
-        <div className="">
-            <i onClick={add} className="CartIcon fas fa-cart-plus fa-2x text-success" />
-            <i onClick={remove} className="CartIcon fas fa-cart-arrow-down fa-2x text-danger" />
+        <div className="d-flex justify-content-between">
+            <i onClick={add} className="CartControls fas fa-cart-plus fa-2x text-success" />
+            <i onClick={remove} className="CartControls fas fa-cart-arrow-down fa-2x text-danger" />
         </div>
     );
 };

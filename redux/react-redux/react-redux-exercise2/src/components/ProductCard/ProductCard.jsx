@@ -1,5 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import './ProductCard.css'
+
+import CartControls from "../CartControls/CartControls";
+
 
 const ProductCard = ({ id, products }) => {
     return (
@@ -10,6 +14,7 @@ const ProductCard = ({ id, products }) => {
                         <Link to={`/products/${id}`}>{products[id].name}</Link>
                     </h2>
                 </div>
+                <CartControls />
             </div>
         </div>
     );

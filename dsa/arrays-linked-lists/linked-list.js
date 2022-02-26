@@ -22,15 +22,13 @@ class LinkedList {
 
   push(val) {
     let newNode = new Node(val);
-
-    if (!this.head) {
+    if (this.length === 0) {
       this.head = newNode;
       this.tail = newNode;
     } else {
       this.tail.next = newNode;
       this.tail = newNode;
-    }
-
+    };
     this.length++;
   }
 
@@ -38,47 +36,47 @@ class LinkedList {
 
   unshift(val) {
     let newNode = new Node(val);
-
-    if (!this.head) {
+    if (this.length === 0) {
       this.head = newNode;
       this.tail = newNode;
     } else {
       newNode.next = this.head;
       this.head = newNode;
     };
-
     this.length++;
   }
 
   /** pop(): return & remove last item. */
 
   pop() {
-    let popVal = this.tail.val;
-    let currNode = this.head;
+    const popVal = this.tail.val;
+    let curNode = this.head;
     if (this.length > 0) this.length--;
     if (this.length === 0) {
-      this.tail = null, this.head = null;
+      this.head = null;
+      this.tail = null;
     } else {
-      while (currNode) {
-        if (currNode.next === this.tail) {
-          this.tail = currNode;
-        }
-        currNode = currNode.next;
-      }
-    }
+      while (curNode) {
+        if (curNode.next === this.tail) {
+          this.tail = curNode;
+        };
+        curNode = this.next;
+      };
+    };
     return popVal;
-  }
+  };
 
   /** shift(): return & remove first item. */
 
   shift() {
-    let shiftVal = this.head.val;
+    const shiftVal = this.head.val;
     this.head = this.head.next;
     if (this.length > 0) this.length--;
     if (this.length === 0) {
-      this.tail = null, this.head = null;
+      this.head = null;
+      this.tail = null;
     }
-    if (this.length < 2) this.tail = this.head;
+    if (this.length > 2) this.tail = this.head;
     return shiftVal;
   }
 

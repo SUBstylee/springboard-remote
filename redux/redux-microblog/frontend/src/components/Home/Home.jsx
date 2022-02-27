@@ -1,7 +1,10 @@
 
 const Home = () => {
     return (
-        <h1>in home</h1>
+        <div className="Home container">
+            <h1>in home</h1>
+
+        </div>
     )
 };
 

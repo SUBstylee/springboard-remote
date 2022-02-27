@@ -8,8 +8,8 @@ const Header = () => (
                 <h1 className="App-title display-4">MicroBlog</h1>
                 <p className="lead">Anonymous blog!</p>
                 <nav>
-                    <NavLink exact to="/">Blog</NavLink>
-                    <NavLink exact to="/new">Add a new post</NavLink>
+                    <NavLink to="/">Blog</NavLink>
+                    <NavLink to="/new">Add a new post</NavLink>
                 </nav>
             </header>
         </div>
